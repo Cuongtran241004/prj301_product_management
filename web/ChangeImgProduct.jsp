@@ -2,6 +2,7 @@
     Document   : UpdateProduct
     Created on : Jun 22, 2024, 8:41:14 AM
     Author     : ACER
+    Usage      : Change image product file
 --%>
 <%@page import="controller.Navigation"%>
 <%@page import="model.dao.ProductDAO"%>

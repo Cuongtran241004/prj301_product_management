@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller.category;
 
 import controller.Action;
@@ -22,7 +18,7 @@ import model.dao.CategoryDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class AddCategory extends HttpServlet {
 
@@ -47,6 +43,8 @@ public class AddCategory extends HttpServlet {
             Category c = new Category();
             c.setCategoryName(cateName);
             c.setMemo(memo);
+            
+            // If category name is already existed, then render message for user
             if (new CategoryDAO(getServletContext()).getCateByName(cateName) != null) {
                 String msg = "Category name is already exist!";
                 request.setAttribute("categoryMsg", msg);

@@ -2,6 +2,7 @@
     Document   : UpdateCategory
     Created on : Jun 22, 2024, 5:15:45 AM
     Author     : ACER
+    Usage      : Update a category file, include form to update a category  
 --%>
 
 <%@page import="controller.Navigation"%>

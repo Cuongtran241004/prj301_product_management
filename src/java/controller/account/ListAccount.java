@@ -22,7 +22,7 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class ListAccount extends HttpServlet {
 

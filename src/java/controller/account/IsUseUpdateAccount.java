@@ -20,7 +20,7 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class IsUseUpdateAccount extends HttpServlet {
 
@@ -35,16 +35,16 @@ public class IsUseUpdateAccount extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
         try {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             String account = request.getParameter("account");
             Account a = new AccountDAO(getServletContext()).getObjectById(account);
-            System.out.println("Before: " + a.isIsUse());
-
+           
+            // Update by call method of AccountDAO
             new AccountDAO(getServletContext()).updateIsUsed(a.getAccount(), !a.isIsUse());
+            
+            // List all accounts
             response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);

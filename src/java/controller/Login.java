@@ -20,16 +20,15 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class Login extends HttpServlet {
-
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            // Nhận thông tin đăng nhập từ form
+            // Get parameter from input form
             String username = request.getParameter("account");
             String password = request.getParameter("pass");
 
@@ -38,13 +37,14 @@ public class Login extends HttpServlet {
             try {
                 AccountDAO dao = new AccountDAO(getServletContext());
                 account = dao.loginSuccess(username, password);
-                
+
                 HttpSession session = request.getSession();
-                
-                if(account != null){
+
+                // if account is not null, then allow this user to access private page
+                if (account != null) {
                     session.setAttribute("login", account);
-                    response.sendRedirect(Navigation.MAIN_DASHBOARD );
-                }else{
+                    response.sendRedirect(Navigation.MAIN_DASHBOARD);
+                } else {
                     String msg = "Invalid username or password";
                     request.setAttribute("ERROR", msg);
                     request.getRequestDispatcher(Navigation.LOGIN).forward(request, response);

@@ -2,6 +2,7 @@
     Document   : addAccount
     Created on : Jun 8, 2024, 7:40:50 AM
     Author     : ACER
+    Usage      : Add account file, include form to add new account 
 --%>
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>
@@ -105,7 +106,7 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-outline-secondary" value="<%= Action.ADD_ACCOUNT%>" name="action">Submit</button>
                     </div>
-                     <div class="col-sm-offset-2 col-sm-2" >
+                    <div class="col-sm-offset-2 col-sm-2" >
                         <a href="<%= Navigation.LIST_ACCOUNT%>" class="btn btn-warning" style="margin-left: 100px">Cancel</a>
                     </div>
                 </div>

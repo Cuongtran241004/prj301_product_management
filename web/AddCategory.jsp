@@ -2,6 +2,7 @@
     Document   : addAccount
     Created on : Jun 8, 2024, 7:40:50 AM
     Author     : ACER
+    Usage      : Add a category file
 --%>
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>

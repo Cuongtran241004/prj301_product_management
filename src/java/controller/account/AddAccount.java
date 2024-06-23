@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller.account;
 
 import controller.Action;
@@ -22,7 +18,7 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class AddAccount extends HttpServlet {
 
@@ -45,7 +41,6 @@ public class AddAccount extends HttpServlet {
             String lastName = request.getParameter("lastName");
             String firstName = request.getParameter("firstName");
 
-            //--- SimpleDateFormat - Calendar ... Để convert String thành Date
             String ns = request.getParameter("birthday");
             Date birthday = Date.valueOf(ns);
 
@@ -55,20 +50,16 @@ public class AddAccount extends HttpServlet {
             boolean isUse = (request.getParameter("isUse") != null) ? true : false;
             int roleInSystem = (request.getParameter("roleInSystem").equals("1")) ? 1 : 2;
 
-            // AccountDAO
-            
+           // If account is already existed, then render message for user
             if (new AccountDAO().getObjectById(account) != null) {
                 String msg = "Account is already exist!";
                 request.setAttribute("accountMsg", msg);
                 request.getRequestDispatcher(Navigation.ADD_ACCOUNT).forward(request, response);
             } else {
-                // AccountDTO
-                Account acc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
-
-                //--- 4/- Gọi bussiness logic thi hành
+                Account acc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);               
                 int result = new AccountDAO().insertRec(acc);
-                //--- 5/- Xử lý trong trường hợp thành công
-
+               
+                // List all accounts 
                 response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
             }
 

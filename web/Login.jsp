@@ -2,6 +2,7 @@
     Document   : login
     Created on : Jun 11, 2024, 12:25:23 PM
     Author     : ACER
+    Usage      : Login file, include form to login to access private page
 --%>
 
 <%@page import="controller.Navigation"%>

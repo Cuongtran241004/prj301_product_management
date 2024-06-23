@@ -24,7 +24,7 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class UpdateAccount extends HttpServlet {
 
@@ -38,9 +38,7 @@ public class UpdateAccount extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        
+            throws ServletException, IOException {     
         try {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
@@ -48,8 +46,7 @@ public class UpdateAccount extends HttpServlet {
             String pass = request.getParameter("pass");
             String lastName = request.getParameter("lastName");
             String firstName = request.getParameter("firstName");
-
-            //--- SimpleDateFormat - Calendar ... Để convert String thành Date
+            
             String ns = request.getParameter("birthday");
             Date birthday = Date.valueOf(ns);
 
@@ -70,10 +67,10 @@ public class UpdateAccount extends HttpServlet {
             upAcc.setIsUse(isUse);
             upAcc.setRoleInSystem(roleInSystem);
 
-            //--- 4/- Gọi bussiness logic thi hành
+            // Update account by call method of AccountDAO
             int result = new AccountDAO().updateRec(upAcc);
-                                              
-            //--- 5/- Xử lý trong trường hợp thành công
+            
+            // List all accounts                                 
             response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
             
         } catch (ClassNotFoundException ex) {

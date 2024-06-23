@@ -15,22 +15,33 @@ import javax.servlet.ServletContext;
 import model.Account;
 import utilities.ConnectDB;
 
+/**
+ * AccountDAO - connect to database and have CRUD methods to work with table
+ * [dbo.accounts] ServletContext - host | instance | port | databaseName | user
+ * | password
+ */
 public class AccountDAO implements Serializable, Accessible<Account> {
 
     private ServletContext sc;
     private Connection con;
 
+    // Default constructor
     public AccountDAO()
             throws ClassNotFoundException, SQLException {
         this.con = new ConnectDB().getConnection();
     }
 
+    // Constructor with ServletContext
     public AccountDAO(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         ConnectDB connect = new ConnectDB(sc);
         con = connect.getConnection();
     }
 
+    /**
+     * @param ServletContext
+     * @return Connection
+     */
     private Connection getConnect(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         ConnectDB connect = new ConnectDB(sc);
@@ -38,6 +49,12 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return con;
     }
 
+    /**
+     * Add a new account to database
+     *
+     * @param Account
+     * @return int
+     */
     @Override
     public int insertRec(Account obj) throws SQLException {
         int result = 0;
@@ -73,6 +90,12 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return result;
     }
 
+    /**
+     * Update existed account in database
+     *
+     * @param Account
+     * @return int
+     */
     @Override
     public int updateRec(Account obj) throws SQLException {
         int result = 0;
@@ -93,7 +116,7 @@ public class AccountDAO implements Serializable, Accessible<Account> {
             cmd.setBoolean(7, obj.isIsUse());
             cmd.setInt(8, obj.getRoleInSystem());
             cmd.setString(9, obj.getAccount().trim());
-           
+
             result = cmd.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,11 +128,16 @@ public class AccountDAO implements Serializable, Accessible<Account> {
             if (con != null) {
                 con.close();
             }
-
             return result;
         }
     }
 
+    /**
+     * Delete existed account in database by account
+     *
+     * @param String account
+     * @return int
+     */
     public int deleteRec(String key) throws SQLException {
         int result = 0;
         Statement cmd = null;
@@ -132,6 +160,12 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return result;
     }
 
+    /**
+     * Delete existed account in database
+     *
+     * @param Account
+     * @return int
+     */
     @Override
     public int deleteRec(Account obj) throws SQLException {
         int result = 0;
@@ -156,6 +190,12 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return result;
     }
 
+    /**
+     * Get all accounts in database by role
+     *
+     * @param int roleInSystem
+     * @return List<Account>
+     */
     public List<Account> listByRole(int role) throws SQLException {
         List<Account> list = new ArrayList<>();
         Statement smt = null;
@@ -195,6 +235,11 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return list;
     }
 
+    /**
+     * Get all accounts in database
+     *
+     * @return List<Account>
+     */
     @Override
     public List<Account> listAll() throws SQLException {
         List<Account> list = new ArrayList<>();
@@ -236,6 +281,13 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return list;
     }
 
+    /**
+     * Update isUse attribute account in database
+     *
+     * @param String account
+     * @param boolean isUsed
+     * @return int
+     */
     public int updateIsUsed(String acc, boolean isUsed) throws SQLException {
         int result = 0;
         PreparedStatement smt = null;
@@ -260,11 +312,18 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return result;
     }
 
+    /**
+     * Get an account in database
+     *
+     * @param String account
+     * @param String pass
+     * @return Account
+     */
     public Account loginSuccess(String account, String pass) throws SQLException {
-        Account acc = null;      
+        Account acc = null;
         Statement cmd = null;
         ResultSet rs = null;
-        if(account.charAt(0) == '\''){
+        if (account.charAt(0) == '\'') {
             return null;
         }
         try {
@@ -272,7 +331,7 @@ public class AccountDAO implements Serializable, Accessible<Account> {
                     + "FROM accounts "
                     + "WHERE account='" + account.trim() + "' "
                     + "AND pass='" + pass.trim() + "';";
-                   
+
             cmd = con.createStatement();
             rs = cmd.executeQuery(sql);
 
@@ -310,6 +369,12 @@ public class AccountDAO implements Serializable, Accessible<Account> {
         return acc;
     }
 
+    /**
+     * Get an account in database by id
+     *
+     * @param String account
+     * @return Account
+     */
     @Override
     public Account getObjectById(String account) throws SQLException {
         Account acc = null;

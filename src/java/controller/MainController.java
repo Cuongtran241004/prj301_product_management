@@ -23,7 +23,7 @@ import model.dao.AccountDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 @MultipartConfig
 public class MainController extends HttpServlet {
@@ -46,74 +46,99 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
 
             switch (action) {
-                // AUTHEN
+                /**
+                 * Authen Request
+                 */
+
+                // Login
                 case Action.LOGIN:
                     url = "Login";
                     break;
 
+                // Logout    
                 case Action.LOGOUT:
                     url = "Logout";
                     break;
 
-                // ACCOUNT   
+                /**
+                 * Account Request
+                 */
+                // Add new account    
                 case Action.ADD_ACCOUNT:
                     url = "AddAccount";
                     break;
 
+                // List all accounts
                 case Action.LIST_ACCOUNT:
                     url = "ListAccount";
                     break;
 
+                // Update an account
                 case Action.UPDATE_ACCOUNT:
                     url = "UpdateAccount";
                     break;
 
+                // Update isUse account 
                 case Action.ISUSE_UPDATE_ACCOUNT:
                     url = "IsUseUpdateAccount";
                     break;
 
+                // Delete an account
                 case Action.DELETE_ACCOUNT:
                     url = "DeleteAccount";
                     break;
 
-                // CATEGORY    
+                /**
+                 * Category Request
+                 */
+                // Add new category
                 case Action.ADD_CATEGORY:
                     url = "AddCategory";
                     break;
 
+                // List all categories
                 case Action.LIST_CATEGORY:
                     url = "ListCategory";
                     break;
 
+                // Update a category
                 case Action.UPDATE_CATEGORY:
                     url = "UpdateCategory";
                     break;
 
+                // Delete a category
                 case Action.DELETE_CATEGORY:
                     url = "DeleteCategory";
                     break;
 
-                // PRODUCT    
+                /**
+                 * Product Request
+                 */
+                // Add new product
                 case Action.ADD_PRODUCT:
                     url = "AddProduct";
                     break;
 
+                // List all products
                 case Action.LIST_PRODUCT:
                     url = "ListProduct";
                     break;
 
+                // Update a product
                 case Action.UPDATE_PRODUCT:
                     url = "UpdateProduct";
                     break;
 
+                // Delete a product
                 case Action.DELETE_PRODUCT:
                     url = "DeleteProduct";
                     break;
 
+                // Change image product
                 case Action.CHANGE_IMG_PRODUCT:
                     url = "ChangeImgProduct";
                     break;
-                    
+
                 default:
                     throw new AssertionError();
             }

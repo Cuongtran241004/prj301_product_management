@@ -2,6 +2,7 @@
     Document   : addAccount
     Created on : Jun 8, 2024, 7:40:50 AM
     Author     : ACER
+    Usage      : Update account file, include form to update a account 
 --%>
 <%@page import="controller.Navigation"%>
 <%@page import="model.dao.AccountDAO"%>

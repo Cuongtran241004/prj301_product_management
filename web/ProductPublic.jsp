@@ -2,6 +2,7 @@
     Document   : ProductPublic
     Created on : Jun 21, 2024, 2:34:54 PM
     Author     : ACER
+    Usage      : Public product file, includes carts rendering all product information
 --%>
 
 <%@page import="java.text.NumberFormat"%>
@@ -24,6 +25,7 @@
                 <%
                     ProductDAO dao = new ProductDAO(getServletContext());
                     List<Product> list = dao.listAll();
+                    // Using this library to get currency of Vietnam
                     Locale localeVN = new Locale("vi", "VN");
                     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
                     

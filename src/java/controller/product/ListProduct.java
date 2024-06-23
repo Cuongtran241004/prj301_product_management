@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.product;
 
 import controller.Navigation;
@@ -22,10 +17,9 @@ import javax.servlet.http.HttpSession;
 import model.Product;
 import model.dao.ProductDAO;
 
-
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 @MultipartConfig
 
@@ -42,14 +36,14 @@ public class ListProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
+        try {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             HttpSession session = request.getSession();
 
             List<Product> list = new ProductDAO(getServletContext()).listAll();
             session.setAttribute("listProduct", list);
-            
+
             response.sendRedirect(Navigation.LIST_PRODUCT);
 
         } catch (ClassNotFoundException ex) {

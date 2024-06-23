@@ -2,6 +2,7 @@
     Document   : Home
     Created on : Jun 19, 2024, 2:50:27 PM
     Author     : ACER
+    Usage      : include all information about Cường's Store
 --%>
 
 <%@page import="model.Account"%>
@@ -28,7 +29,7 @@
         }
 
     %>
-    <h2 class="text-center mt-5">Các tính năng có thể sử dụng</h2>
+    <h2 class="text-center mt-5">Available To Access</h2>
     <%            if (check) {
     %>
 

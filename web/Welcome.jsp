@@ -2,6 +2,7 @@
     Document   : header-customer.jsp
     Created on : Jun 9, 2024, 10:28:08 PM
     Author     : ACER
+    Usage      : Welcome file, both administrator or staff can access
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

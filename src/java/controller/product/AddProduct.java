@@ -68,7 +68,7 @@ public class AddProduct extends HttpServlet {
             String typeId = request.getParameter("type");
             String productImage = handleUploadFile(request, response);
 
-            // Xử lý Date bằng TimeStamp
+            // Process Date by TimeStamp
             java.util.Date utilDate = new java.util.Date();
             java.sql.Timestamp postedDate = new java.sql.Timestamp(utilDate.getTime());
 
@@ -77,6 +77,7 @@ public class AddProduct extends HttpServlet {
 
             Product product = new Product();
 
+            // If product is already existed, then render message for user
             if (new ProductDAO(getServletContext()).getObjectById(productId) != null) {
                 String msg = "Product is already exist!";
                 request.setAttribute("productMsg", msg);
@@ -105,6 +106,7 @@ public class AddProduct extends HttpServlet {
         }
     }
 
+    // Using this method to process upload product image
     private String handleUploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html;charset=UTF-8");
         // Create path components to save the file

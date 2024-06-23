@@ -1,10 +1,19 @@
-
 package model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Account implements Serializable{
+/**
+ *
+ * @author Tran Quoc Cuong
+ */
+
+/**
+ * Account DTO class
+ * @version 1.0
+ */
+public class Account implements Serializable {
+
     private String account;
     private String pass;
     private String lastName;
@@ -15,19 +24,21 @@ public class Account implements Serializable{
     private boolean isUse;
     private int roleInSystem;
 
+    // Default constructor
     public Account() {
-        account = "";
-        pass = "";
-        lastName = "";
-        firstName = "";
-        birthday = new Date(1900, 1, 1);
-        gender = true;
-        phone = "";
-        isUse = true;
-        roleInSystem = 1;
+        this.account = "";
+        this.pass = "";
+        this.lastName = "";
+        this.firstName = "";
+        this.birthday = new Date(1900, 1, 1);
+        this.gender = true;
+        this.phone = "";
+        this.isUse = true;
+        this.roleInSystem = 1;
     }
 
-    public Account(String account, String pass, String lastName, String firstName, 
+    // Constructor with attributes 
+    public Account(String account, String pass, String lastName, String firstName,
             Date birthday, boolean gender, String phone, boolean isUse, int roleInSystem) {
         this.account = account;
         this.pass = pass;
@@ -80,6 +91,7 @@ public class Account implements Serializable{
         this.birthday = birthday;
     }
 
+    // True: Male | False: Female
     public boolean isGender() {
         return gender;
     }
@@ -88,6 +100,7 @@ public class Account implements Serializable{
         this.gender = gender;
     }
 
+    // Begin with 0 end length = 10
     public String getPhone() {
         return phone;
     }
@@ -96,6 +109,7 @@ public class Account implements Serializable{
         this.phone = phone;
     }
 
+    // True: Being used | False: is prevented
     public boolean isIsUse() {
         return isUse;
     }
@@ -104,13 +118,14 @@ public class Account implements Serializable{
         this.isUse = isUse;
     }
 
+    // 1: Administrator | other: Staff
     public int getRoleInSystem() {
         return roleInSystem;
     }
 
+    // 1: Administrator | other: Staff
     public void setRoleInSystem(int roleInSystem) {
         this.roleInSystem = roleInSystem;
     }
-    
-    
+
 }

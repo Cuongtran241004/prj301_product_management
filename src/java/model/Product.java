@@ -4,6 +4,15 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * @author Tran Quoc Cuong
+ */
+
+/**
+ * Product DTO class
+ * @version 1.0
+ */
 public class Product implements Serializable{
     private String productId;
     private String productName;
@@ -16,9 +25,15 @@ public class Product implements Serializable{
     private int price;
     private int discount;
 
+    // Default constructor
     public Product() {
+        this.productId = "";
+        this.productName = "";
+        this.type = null;
+        this.account = null;        
     }
 
+    // Constructor with attributes
     public Product(String productId, String productName, String productImage, String brief, Date postedDate, Category type, Account account, String unit, int price, int discount) {
         this.productId = productId;
         this.productName = productName;

@@ -22,7 +22,7 @@ import model.dao.CategoryDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class UpdateCategory extends HttpServlet {
 
@@ -45,6 +45,7 @@ public class UpdateCategory extends HttpServlet {
             String name = request.getParameter("cateName");
             String memo = request.getParameter("memo");
 
+            // If category is already existed, then render message for user
             if (new CategoryDAO(getServletContext()).getCateByName(name) != null) {
                 String msg = "Category name is already exist!";
                 request.setAttribute("categoryUpdateMsg", msg);

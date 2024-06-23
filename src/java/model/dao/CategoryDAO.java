@@ -14,28 +14,45 @@ import javax.servlet.ServletContext;
 import model.Category;
 import utilities.ConnectDB;
 
+/**
+ * CategoryDAO - connect to database and have CRUD methods to work with table
+ * [dbo.categories] ServletContext - host | instance | port | databaseName |
+ * user | password
+ */
 public class CategoryDAO implements Serializable, Accessible<Category> {
 
     private ServletContext sc;
     private Connection con;
 
+    // Default constructor
     public CategoryDAO()
             throws ClassNotFoundException, SQLException {
         con = new ConnectDB().getConnection();
     }
 
+    // Constructor with ServletContext
     public CategoryDAO(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         this.sc = sc;
         con = new ConnectDB(sc).getConnection();
     }
 
+    /**
+     * @param ServletContext
+     * @return Connection
+     */
     private Connection getConnect(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         this.sc = sc;
         return con = new ConnectDB(sc).getConnection();
     }
 
+    /**
+     * Add a new category to database
+     *
+     * @param Category
+     * @return int
+     */
     @Override
     public int insertRec(Category obj) throws SQLException {
         int result = 0;
@@ -62,6 +79,12 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         return result;
     }
 
+    /**
+     * Update existed category in database
+     *
+     * @param Category
+     * @return int
+     */
     @Override
     public int updateRec(Category obj) throws SQLException {
         int result = 0;
@@ -77,7 +100,7 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
 
             result = cmd.executeUpdate();
         } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (cmd != null) {
                 cmd.close();
@@ -90,6 +113,12 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         }
     }
 
+    /**
+     * Delete existed category in database
+     *
+     * @param String typeId
+     * @return int
+     */
     public int deleteRec(String key) throws SQLException {
         int result = 0;
         Statement cmd = null;
@@ -113,6 +142,12 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         return result;
     }
 
+    /**
+     * Delete existed category in database
+     *
+     * @param Category
+     * @return int
+     */
     @Override
     public int deleteRec(Category obj) throws SQLException {
         int result = 0;
@@ -137,6 +172,11 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         return result;
     }
 
+    /**
+     * Get all categories in database
+     *
+     * @return List<Category>
+     */
     @Override
     public List<Category> listAll() throws SQLException {
         List<Category> list = new ArrayList<>();
@@ -174,6 +214,12 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         return list;
     }
 
+    /**
+     * Get category in database by role
+     *
+     * @param String typeId
+     * @return Category
+     */
     @Override
     public Category getObjectById(String id) throws SQLException {
         Category ctg = null;
@@ -214,6 +260,12 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         return ctg;
     }
 
+    /**
+     * Get category in database by typeId
+     *
+     * @param int typeId
+     * @return Category
+     */
     public Category getCateById(int id) throws SQLException {
         Category ctg = null;
         Statement cmd = null;
@@ -252,7 +304,13 @@ public class CategoryDAO implements Serializable, Accessible<Category> {
         }
         return ctg;
     }
-    
+
+    /**
+     * Get category in database by name
+     *
+     * @param String categoryName
+     * @return Category
+     */
     public Category getCateByName(String name) throws SQLException {
         Category ctg = null;
         Statement cmd = null;

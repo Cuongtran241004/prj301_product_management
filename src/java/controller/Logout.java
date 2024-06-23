@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 public class Logout extends HttpServlet {
 
@@ -30,7 +30,9 @@ public class Logout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+        // Delete session of this user and forward this user to login page
         HttpSession session = request.getSession();
         session.invalidate();
         request.getRequestDispatcher(Navigation.LOGIN).forward(request, response);

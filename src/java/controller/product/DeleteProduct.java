@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.product;
 
 import controller.Action;
@@ -21,10 +16,9 @@ import model.dao.ProductDAO;
 
 /**
  *
- * @author ACER
+ * @author Trần Quốc Cường
  */
 @MultipartConfig
-
 public class DeleteProduct extends HttpServlet {
 
     /**
@@ -42,9 +36,9 @@ public class DeleteProduct extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             String cate = request.getParameter("product");
-            
+
             new ProductDAO(getServletContext()).deleteRec(cate);
-            
+
             response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
 
         } catch (ClassNotFoundException ex) {

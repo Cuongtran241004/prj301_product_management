@@ -18,22 +18,33 @@ import model.Category;
 import model.Product;
 import utilities.ConnectDB;
 
+/**
+ * ProductDAO - connect to database and have CRUD methods to work with table
+ * [dbo.products] ServletContext - host | instance | port | databaseName | user
+ * | password
+ */
 public class ProductDAO implements Serializable, Accessible<Product> {
 
     private ServletContext sc;
     private Connection con;
 
+    // Default constructor
     public ProductDAO()
             throws ClassNotFoundException, SQLException {
         con = new ConnectDB().getConnection();
     }
 
+    // Constructor with ServletContext
     public ProductDAO(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         this.sc = sc;
         con = new ConnectDB(sc).getConnection();
     }
 
+    /**
+     * @param ServletContext
+     * @return Connection
+     */
     private Connection getConnect(ServletContext sc)
             throws ClassNotFoundException, SQLException {
         this.sc = sc;
@@ -41,6 +52,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return con;
     }
 
+    /**
+     * Add a new product to database
+     *
+     * @param Product
+     * @return int
+     */
     @Override
     public int insertRec(Product obj) throws SQLException {
         int result = 0;
@@ -79,6 +96,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return result;
     }
 
+    /**
+     * Update existed product in database
+     *
+     * @param Product
+     * @return int
+     */
     @Override
     public int updateRec(Product obj) throws SQLException {
         int result = 0;
@@ -117,6 +140,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return result;
     }
 
+    /**
+     * Update product image in database
+     *
+     * @param Product
+     * @return int
+     */
     public int updatePhoto(Product obj) throws SQLException {
         int result = 0;
         PreparedStatement smt = null;
@@ -142,6 +171,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return result;
     }
 
+    /**
+     * Delete existed product in database by productId
+     *
+     * @param String productId
+     * @return int
+     */
     public int deleteRec(String key) throws SQLException {
         int result = 0;
         Statement cmd = null;
@@ -165,6 +200,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return result;
     }
 
+    /**
+     * Delete existed product in database
+     *
+     * @param Product
+     * @return int
+     */
     @Override
     public int deleteRec(Product obj) throws SQLException {
         int result = 0;
@@ -192,6 +233,11 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get all products in database
+     *
+     * @return List<Product>
+     */
     @Override
     public List<Product> listAll() throws SQLException {
         List<Product> list = new ArrayList<>();
@@ -236,6 +282,12 @@ public class ProductDAO implements Serializable, Accessible<Product> {
         return list;
     }
 
+    /**
+     * Get product in database by id
+     *
+     * @param String productId
+     * @return Product
+     */
     @Override
     public Product getObjectById(String id) throws SQLException {
         Product product = null;
@@ -266,7 +318,7 @@ public class ProductDAO implements Serializable, Accessible<Product> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
