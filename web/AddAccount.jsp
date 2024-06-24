@@ -69,7 +69,9 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2 fw-bold" for="birthday">Birthday </label>
                     <div class="col-sm-10">          
-                        <input type="date" class="form-control"  placeholder="First name" name="birthday" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="">
+                        <input type="date" class="form-control"  placeholder="First name" name="birthday" 
+                               max="2010-01-01"
+                               pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="">
                     </div>
                 </div>
 
