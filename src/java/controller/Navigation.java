@@ -11,7 +11,8 @@ public interface Navigation {
 
     // Navigation to Login 
     static final String LOGIN = "Login.jsp";
-
+    static final String REGISTER = "Register.jsp";
+    
     // Navigation to Invalid 
     static final String INVALID = "invalid.html";
 
@@ -38,7 +39,9 @@ public interface Navigation {
 
     // Navigation to Product View Page 
     static final String PUBLIC_PRODUCT = "ProductPublic.jsp";
-
+    static final String PRODUCT_DETAIL = "ProductDetail.jsp";
+    static final String CART_SHOP = "CartShop.jsp";
+    
     // Navigation to Footer 
     static final String FOOTER = "footer.html";
 }

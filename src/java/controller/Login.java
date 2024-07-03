@@ -5,6 +5,8 @@
  */
 package controller;
 
+import entities.Accounts;
+import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -32,28 +32,22 @@ public class Login extends HttpServlet {
             String username = request.getParameter("account");
             String password = request.getParameter("pass");
 
-            Account account = null;
+            Accounts account = null;
 
-            try {
-                AccountDAO dao = new AccountDAO(getServletContext());
-                account = dao.loginSuccess(username, password);
+            AccountsBLO blo = new AccountsBLO();
+            account = blo.loginSuccess(username, password);
 
-                HttpSession session = request.getSession();
-
-                // if account is not null, then allow this user to access private page
-                if (account != null) {
-                    session.setAttribute("login", account);
-                    response.sendRedirect(Navigation.MAIN_DASHBOARD);
-                } else {
-                    String msg = "Invalid username or password";
-                    request.setAttribute("ERROR", msg);
-                    request.getRequestDispatcher(Navigation.LOGIN).forward(request, response);
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            HttpSession session = request.getSession();
+          
+            if (account != null) {
+                session.setAttribute("login", account);
+                response.sendRedirect(Navigation.MAIN_DASHBOARD);
+            } else {
+                String msg = "Invalid username or password";
+                request.setAttribute("ERROR", msg);
+                request.getRequestDispatcher(Navigation.LOGIN).forward(request, response);
             }
+           
         }
     }
 

@@ -2,6 +2,7 @@
 package controller.account;
 
 import controller.Action;
+import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -11,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -34,14 +34,10 @@ public class DeleteAccount extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             String account = request.getParameter("account");
-            new AccountDAO(getServletContext()).deleteRec(account);
+            new AccountsBLO().deleteRec(account);
             response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

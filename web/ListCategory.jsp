@@ -8,7 +8,6 @@
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>
 <%@page import="java.util.List"%>
-<%@page import="model.Category"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>List Categories Page</title>
-
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
 
     <body >

@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
+        <link rel="shortcut icon" href="images/web_logo.png">
         <link rel="stylesheet" type="text/css" href="css/login.css">
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +29,7 @@
         <!--<p style="color: red; font-weight: bold">
         <%=   (request.getAttribute("error") != null) ? request.getAttribute("error") : "" %>
         </p>-->
-        <form action="MainController" method="POST" class="row" style="width: 70%; margin: 0 auto">
+        <form action="AuthenController" method="POST" class="row" style="width: 70%; margin: 0 auto">
             <div class="imgcontainer col-md-6" style="margin-top: 30px">
                 <img src="images/login.jpg" alt="Avatar" class="avatar">
             </div>

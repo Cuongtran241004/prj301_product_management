@@ -18,7 +18,7 @@ create table accounts(
 	gender bit default 1,		-- 1: male | 0: female
 	phone nvarchar(20),			-- Only digits, begin with 03|05|07|08|09
 	isUse bit default 0,		-- 1: being used | 0: is prevented
-	roleInSystem int default 0	-- Role in system {1: admin - others: staff}
+	roleInSystem nvarchar(30) default 'customer'	-- Role in system {1: admin - others: staff}
 )
 go
 -- 2: Tạo Table [categories] chứa thông tin loại sản phẩm, ngành hàng -----------------------------
@@ -43,12 +43,20 @@ create table products(
 )
 go
 
-
+create table items(
+	itemId int primary key not null identity,
+	productId varchar(10) not null foreign key references products(productId) on update cascade,
+	account varchar(20) not null foreign key references accounts(account) on update cascade,
+	quantity int not null default 1,
+)
+go
 -- YC 1: Nhập thông tin tài khoản, tối thiểu 5 thành viên sẽ dùng để làm việc với các trang: Administrative pages
 insert into accounts
-values('manager','123',N'Nguyễn Minh','Quang','1996/06/12',1,'0935694223',1,2)
+values('manager','123',N'Nguyễn Minh','Quang','1996/06/12',1,'0935694223',1,'staff')
 insert into accounts
-values('admin','abc',N'Nguyễn Quang',N'Hưng','1996/10/28',1,'0705101028',1,1)
+values('admin','abc',N'Nguyễn Quang',N'Hưng','1996/10/28',1,'0705101028',1, 'administrator')
+insert into accounts
+values('customer','abc',N'Châu Vĩnh',N'Tiến','2004/04/10',1,'0705101028',1,'customer')
 GO
 
 insert into categories(categoryName) values(N'Dụng cụ nhà bếp')

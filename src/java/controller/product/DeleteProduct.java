@@ -2,6 +2,7 @@ package controller.product;
 
 import controller.Action;
 import controller.account.AddAccount;
+import entities.ProductsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -12,7 +13,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.ProductDAO;
 
 /**
  *
@@ -35,17 +35,15 @@ public class DeleteProduct extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
-            String cate = request.getParameter("product");
+            String product = request.getParameter("product");
 
-            new ProductDAO(getServletContext()).deleteRec(cate);
+            ProductsBLO dao = new ProductsBLO();
+            
+           dao.deleteRec(product);
 
             response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

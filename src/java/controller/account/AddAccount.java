@@ -1,8 +1,9 @@
-
 package controller.account;
 
 import controller.Action;
 import controller.Navigation;
+import entities.Accounts;
+import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -13,8 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -33,41 +32,36 @@ public class AddAccount extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            String account = request.getParameter("account");
-            String pass = request.getParameter("pass");
-            String lastName = request.getParameter("lastName");
-            String firstName = request.getParameter("firstName");
 
-            String ns = request.getParameter("birthday");
-            Date birthday = Date.valueOf(ns);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String account = request.getParameter("account");
+        String pass = request.getParameter("pass");
+        String lastName = request.getParameter("lastName");
+        String firstName = request.getParameter("firstName");
 
-            boolean gender = (request.getParameter("gender").equals("1")) ? true : false;
-            String phone = request.getParameter("phone");
+        String ns = request.getParameter("birthday");
+        Date birthday = Date.valueOf(ns);
 
-            boolean isUse = (request.getParameter("isUse") != null) ? true : false;
-            int roleInSystem = (request.getParameter("roleInSystem").equals("1")) ? 1 : 2;
+        boolean gender = (request.getParameter("gender").equals("1")) ? true : false;
+        String phone = request.getParameter("phone");
 
-           // If account is already existed, then render message for user
-            if (new AccountDAO().getObjectById(account) != null) {
-                String msg = "Account is already exist!";
-                request.setAttribute("accountMsg", msg);
-                request.getRequestDispatcher(Navigation.ADD_ACCOUNT).forward(request, response);
-            } else {
-                Account acc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);               
-                int result = new AccountDAO().insertRec(acc);
-               
-                // List all accounts 
-                response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
-            }
+        boolean isUse = (request.getParameter("isUse") != null) ? true : false;
+        String roleInSystem = request.getParameter("roleInSystem");
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
+        // If account is already existed, then render message for user
+        if (new AccountsBLO().getObjectById(account) != null) {
+            String msg = "Account is already exist!";
+            request.setAttribute("accountMsg", msg);
+            request.getRequestDispatcher(Navigation.ADD_ACCOUNT).forward(request, response);
+        } else {
+            Accounts acc = new Accounts(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
+            int result = new AccountsBLO().insertRec(acc);
+
+            // List all accounts 
+            response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

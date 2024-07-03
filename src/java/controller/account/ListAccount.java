@@ -6,6 +6,8 @@
 package controller.account;
 
 import controller.Navigation;
+import entities.Accounts;
+import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,8 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -38,18 +38,14 @@ public class ListAccount extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            
-            List<Account> list = new AccountDAO(getServletContext()).listAll();
-            session.setAttribute("listAccount", list);
-            response.sendRedirect(Navigation.LIST_ACCOUNT);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        List<Accounts> list = new AccountsBLO().listAll();
+        session.setAttribute("listAccount", list);
+        response.sendRedirect(Navigation.LIST_ACCOUNT);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

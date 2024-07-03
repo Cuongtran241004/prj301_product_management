@@ -8,6 +8,8 @@ package controller.category;
 import controller.Action;
 import controller.Navigation;
 import controller.account.AddAccount;
+import entities.Categories;
+import entities.CategoriesBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,8 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
-import model.dao.CategoryDAO;
 
 /**
  *
@@ -38,36 +38,31 @@ public class UpdateCategory extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            String type = request.getParameter("typeId");
-            String name = request.getParameter("cateName");
-            String memo = request.getParameter("memo");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String type = request.getParameter("typeId");
+        String name = request.getParameter("cateName");
+        String memo = request.getParameter("memo");
 
-            // If category is already existed, then render message for user
-            if (new CategoryDAO(getServletContext()).getCateByName(name) != null) {
-                String msg = "Category name is already exist!";
-                request.setAttribute("categoryUpdateMsg", msg);
-                request.getRequestDispatcher(Navigation.UPDATE_CATEGORY+"?category=" +type).forward(request, response);
+        CategoriesBLO dao = new CategoriesBLO();
+        // If category is already existed, then render message for user
+        if (dao.getCateByName(name) != null) {
+            String msg = "Category name is already exist!";
+            request.setAttribute("categoryUpdateMsg", msg);
+            request.getRequestDispatcher(Navigation.UPDATE_CATEGORY + "?category=" + type).forward(request, response);
 
-            } else {
-                Category updateCate = new CategoryDAO(getServletContext()).getObjectById(type);
-                updateCate.setCategoryName(name);
-                updateCate.setMemo(memo != null ? memo : "");
+        } else {
+            Categories updateCate = dao.getObjectById(Integer.parseInt(type));
+            updateCate.setCategoryName(name);
+            updateCate.setMemo(memo != null ? memo : "");
 
-                int result = new CategoryDAO(getServletContext()).updateRec(updateCate);
-                response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
+            int result = dao.updateRec(updateCate);
+            response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

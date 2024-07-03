@@ -1,9 +1,10 @@
-
 package controller.category;
 
 import controller.Action;
 import controller.Navigation;
 import controller.account.AddAccount;
+import entities.Categories;
+import entities.CategoriesBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,8 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
-import model.dao.CategoryDAO;
 
 /**
  *
@@ -35,21 +34,17 @@ public class ListCategory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            HttpSession session = request.getSession();
 
-            List<Category> list = new CategoryDAO(getServletContext()).listAll();
-            session.setAttribute("listCategory", list);
-            
-            response.sendRedirect(Navigation.LIST_CATEGORY);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        CategoriesBLO dao = new CategoriesBLO();
+        List<Categories> list = dao.listAll();
+        session.setAttribute("listCategory", list);
+
+        response.sendRedirect(Navigation.LIST_CATEGORY);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

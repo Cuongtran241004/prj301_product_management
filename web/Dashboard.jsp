@@ -5,9 +5,9 @@
     Usage      : Dashboard file
 --%>
 
+<%@page import="entities.Accounts"%>
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>
-<%@page import="model.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dashboard Page</title>
-
+        <link rel="shortcut icon" href="images/web_logo.png">
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Latest compiled JavaScript -->
@@ -30,17 +30,16 @@
         <%
             boolean check = false;
 
-            Account a = (Account) session.getAttribute("login");
-            if (a.getRoleInSystem() == 1) {
+            Accounts a = (Accounts) session.getAttribute("login");
+            if (a.getRoleInSystem().equals("administrator")) {
                 check = true;
             }
-            String role = a.getRoleInSystem() == 1 ? "admin" : "manager";
             String fullname = a.getLastName() + " " + a.getFirstName();
         %>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
 
-                <a class="navbar-brand" href="Welcome.jsp">Welcome to <span style="color: red"><%= role%> </span><%= fullname%> </a>
+                <a class="navbar-brand" href="Welcome.jsp">Welcome to <span style="color: red"><%= a.getFirstName() %> </span><%= fullname%> </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -49,10 +48,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item mx-4">
-                            <a class="nav-link" href="<%= Navigation.WELCOME %>">Home</a>                        
+                            <a class="nav-link" href="<%= Navigation.WELCOME%>">Home</a>                        
                         </li>
                         <li class="nav-item mx-4">                             
-                            <a class="nav-link" href="<%= Navigation.MAIN_DASHBOARD %>">Dashboard</a>
+                            <a class="nav-link" href="<%= Navigation.MAIN_DASHBOARD%>">Dashboard</a>
                         </li>
 
                         <li class="nav-item dropdown mx-4">
@@ -91,7 +90,7 @@
 
                 </div>
 
-                <a href="MainController?action=<%= Action.LOGOUT%>" class="btn btn-danger">Logout</a>
+                <a href="AuthenController?action=<%= Action.LOGOUT%>" class="btn btn-danger">Logout</a>
             </div>              
         </nav>
 

@@ -1,9 +1,10 @@
-
 package controller.category;
 
 import controller.Action;
 import controller.Navigation;
 import controller.account.AddAccount;
+import entities.Categories;
+import entities.CategoriesBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -13,8 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
-import model.dao.CategoryDAO;
 
 /**
  *
@@ -34,31 +33,27 @@ public class AddCategory extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            String cateName = request.getParameter("cateName");
-            String memo = request.getParameter("memo");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String cateName = request.getParameter("cateName");
+        String memo = request.getParameter("memo");
 
-            Category c = new Category();
-            c.setCategoryName(cateName);
-            c.setMemo(memo);
-            
-            // If category name is already existed, then render message for user
-            if (new CategoryDAO(getServletContext()).getCateByName(cateName) != null) {
-                String msg = "Category name is already exist!";
-                request.setAttribute("categoryMsg", msg);
-                request.getRequestDispatcher(Navigation.ADD_CATEGORY).forward(request, response);
-            } else {
-                new CategoryDAO(getServletContext()).insertRec(c);
-                response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
-            }
+        Categories c = new Categories();
+        c.setCategoryName(cateName);
+        c.setMemo(memo);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
+        CategoriesBLO dao = new CategoriesBLO();
+
+        // If category name is already existed, then render message for user
+        if (dao.getCateByName(cateName) != null) {
+            String msg = "Category name is already exist!";
+            request.setAttribute("categoryMsg", msg);
+            request.getRequestDispatcher(Navigation.ADD_CATEGORY).forward(request, response);
+        } else {
+            dao.insertRec(c);
+            response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

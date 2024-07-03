@@ -6,6 +6,8 @@
 package controller.account;
 
 import controller.Action;
+import entities.Accounts;
+import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,8 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -35,22 +35,18 @@ public class IsUseUpdateAccount extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            String account = request.getParameter("account");
-            Account a = new AccountDAO(getServletContext()).getObjectById(account);
-           
-            // Update by call method of AccountDAO
-            new AccountDAO(getServletContext()).updateIsUsed(a.getAccount(), !a.isIsUse());
-            
-            // List all accounts
-            response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String account = request.getParameter("account");
+        Accounts a = new AccountsBLO().getObjectById(account);
+
+        // Update by call method of AccountDAO
+        new AccountsBLO().updateIsUsed(a.getAccount(), !a.getIsUse());
+
+        // List all accounts
+        response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,7 +7,11 @@ package controller.product;
 
 import controller.Action;
 import controller.Navigation;
-import controller.account.AddAccount;
+import entities.Accounts;
+import entities.Categories;
+import entities.CategoriesBLO;
+import entities.Products;
+import entities.ProductsBLO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,11 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import model.Account;
-import model.Category;
-import model.Product;
-import model.dao.CategoryDAO;
-import model.dao.ProductDAO;
 
 /**
  *
@@ -53,57 +52,51 @@ public class AddProduct extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            Account account = (Account) request.getSession().getAttribute("login");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        Accounts account = (Accounts) request.getSession().getAttribute("login");
 
-            String productId = request.getParameter("id");
-            String productName = request.getParameter("name");
+        String productId = request.getParameter("id");
+        String productName = request.getParameter("name");
 
-            String brief = request.getParameter("brief");
-            String unit = request.getParameter("unit");
-            String price = request.getParameter("price");
-            String discount = request.getParameter("discount");
-            String typeId = request.getParameter("type");
-            String productImage = handleUploadFile(request, response);
+        String brief = request.getParameter("brief");
+        String unit = request.getParameter("unit");
+        String price = request.getParameter("price");
+        String discount = request.getParameter("discount");
+        String typeId = request.getParameter("type");
+        String productImage = handleUploadFile(request, response);
 
-            // Process Date by TimeStamp
-            java.util.Date utilDate = new java.util.Date();
-            java.sql.Timestamp postedDate = new java.sql.Timestamp(utilDate.getTime());
+        // Process Date by TimeStamp
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Timestamp postedDate = new java.sql.Timestamp(utilDate.getTime());
 
-            CategoryDAO cateDao = new CategoryDAO(getServletContext());
-            Category type = cateDao.getCateById(Integer.parseInt(typeId));
+        CategoriesBLO cateDao = new CategoriesBLO();
+        Categories type = cateDao.getObjectById(typeId);
 
-            Product product = new Product();
+        ProductsBLO proDao = new ProductsBLO();
+        Products product = new Products();
 
-            // If product is already existed, then render message for user
-            if (new ProductDAO(getServletContext()).getObjectById(productId) != null) {
-                String msg = "Product is already exist!";
-                request.setAttribute("productMsg", msg);
-                request.getRequestDispatcher(Navigation.ADD_PRODUCT).forward(request, response);
-            } else {
-                product.setProductId(productId);
-                product.setProductName(productName);
-                product.setProductImage(productImage != null ? productImage : "");
-                product.setBrief(brief != null ? brief : "");
-                product.setPostedDate(postedDate);
-                product.setType(type);
-                product.setAccount(account);
-                product.setUnit(unit != null ? unit : "");
-                product.setPrice(price != null ? Integer.parseInt(price) : 0);
-                product.setDiscount(discount != null ? Integer.parseInt(discount) : 0);
+        // If product is already existed, then render message for user
+        if (proDao.getObjectById(productId) != null) {
+            String msg = "Product is already exist!";
+            request.setAttribute("productMsg", msg);
+            request.getRequestDispatcher(Navigation.ADD_PRODUCT).forward(request, response);
+        } else {
+            product.setProductId(productId);
+            product.setProductName(productName);
+            product.setProductImage(productImage != null ? productImage : "");
+            product.setBrief(brief != null ? brief : "");
+            product.setPostedDate(postedDate);
+            product.setTypeId(type);
+            product.setAccount(account);
+            product.setUnit(unit != null ? unit : "");
+            product.setPrice(price != null ? Integer.parseInt(price) : 0);
+            product.setDiscount(discount != null ? Integer.parseInt(discount) : 0);
 
-                new ProductDAO(getServletContext()).insertRec(product);
-                response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
-            }
-          
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
+            proDao.insertRec(product);
+            response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
         }
+
     }
 
     // Using this method to process upload product image

@@ -4,10 +4,10 @@
     Author     : ACER
     Usage      : Change image product file
 --%>
+<%@page import="entities.ProductsBLO"%>
+<%@page import="entities.Products"%>
 <%@page import="controller.Navigation"%>
-<%@page import="model.dao.ProductDAO"%>
 <%@page import="controller.Action"%>
-<%@page import="model.Product"%>
 <%@page import="java.util.List"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Change Image Product</title>
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body>
         <c:if test="${login == null}">
@@ -27,8 +28,8 @@
 
         <%
             String updateProduct = request.getParameter("product");
-            Product product = new ProductDAO(getServletContext()).getObjectById(updateProduct);
-            int type = product.getType().getTypeId();
+            Products product = new ProductsBLO().getObjectById(updateProduct);
+            int type = product.getTypeId().getTypeId();
         %>
         <div class="container" style="width: 60%" >
 

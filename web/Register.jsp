@@ -1,8 +1,8 @@
 <%-- 
-    Document   : addAccount
+    Document   : Register
     Created on : Jun 8, 2024, 7:40:50 AM
     Author     : ACER
-    Usage      : Add account file, include form to add new account 
+    Usage      : Register an account 
 --%>
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>
@@ -11,22 +11,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Add New Account</title>
+        <title>Register Account</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="images/web_logo.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body >
-        <c:if test="${login == null }">
-            <jsp:forward page = "Login.jsp"></jsp:forward>
-        </c:if>
-
-        <jsp:include page="Dashboard.jsp"></jsp:include>
-
-            <div class="container" >
-
-                <h2 class="my-4 text-center">Add new account</h2>
-                <form  action="MainController" method="POST">
+       
+        <div class="container">
+                <h2 class="my-4 text-center">Register Account</h2>
+                <form  action="AuthenController" method="POST"  style="width: 60%; margin: 0 auto">
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-2 fw-bold" for="account">Account</label>
                         <div class="col-sm-10">
@@ -86,31 +82,13 @@
                     <label class="form-check-label" for="gender">Female</label>
                 </div>
 
-                <div class="row mb-3">
-                    <label class="col-form-label col-sm-2 fw-bold" for="roleInSystem">Role in system </label>
-                    <div class="col-sm-10">          
-                        <select class="form-select"  name="roleInSystem">
-                            <option value="administrator">Administrator</option>
-                            <option value="staff">Staff</option>   
-                            <option value="customer">Customer</option>  
-                        </select>
-                    </div>
-                </div>
-
+         
                 <div class="row mb-3">        
                     <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label ><input type="checkbox" name="isUse" value="1"> Is active</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">        
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-outline-secondary" value="<%= Action.ADD_ACCOUNT%>" name="action">Submit</button>
+                        <button type="submit" class="btn btn-outline-secondary" value="<%= Action.REGISTER %>" name="action">Submit</button>
                     </div>
                     <div class="col-sm-offset-2 col-sm-2" >
-                        <a href="<%= Navigation.LIST_ACCOUNT%>" class="btn btn-warning" style="margin-left: 100px">Cancel</a>
+                        <a href="<%= Navigation.WELCOME %>" class="btn btn-warning" style="margin-left: 100px">Cancel</a>
                     </div>
                 </div>
             </form>

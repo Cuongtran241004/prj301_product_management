@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.dao.AccountDAO;
 
 /**
  *
@@ -44,26 +42,12 @@ public class MainController extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
+            /**
+             * Account Request
+             */
+            // Add new account    
 
             switch (action) {
-                /**
-                 * Authen Request
-                 */
-
-                // Login
-                case Action.LOGIN:
-                    url = "Login";
-                    break;
-
-                // Logout    
-                case Action.LOGOUT:
-                    url = "Logout";
-                    break;
-
-                /**
-                 * Account Request
-                 */
-                // Add new account    
                 case Action.ADD_ACCOUNT:
                     url = "AddAccount";
                     break;

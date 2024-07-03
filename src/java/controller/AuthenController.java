@@ -3,31 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.account;
+package controller;
 
-import controller.Action;
-import controller.Navigation;
-import entities.Accounts;
-import entities.AccountsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
- * @author Trần Quốc Cường
+ * @author ACER
  */
-public class UpdateAccount extends HttpServlet {
+public class AuthenController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,42 +31,34 @@ public class UpdateAccount extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {     
-      
-            response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String url = Navigation.INVALID;
+        try {
             request.setCharacterEncoding("UTF-8");
-            String account = request.getParameter("account");
-            String pass = request.getParameter("pass");
-            String lastName = request.getParameter("lastName");
-            String firstName = request.getParameter("firstName");
-            
-            String ns = request.getParameter("birthday");
-            Date birthday = Date.valueOf(ns);
+            String action = request.getParameter("action");
 
-            boolean gender = (request.getParameter("gender").equals("1")) ? true : false;
-            String phone = request.getParameter("phone");
+            switch (action) {
+                /**
+                 * Authen Request
+                 */
 
-            boolean isUse = (request.getParameter("isUse") != null) ? true : false;
-            String roleInSystem = request.getParameter("roleInSystem");
+                // Login
+                case Action.LOGIN:
+                    url = "Login";
+                    break;
 
-            Accounts upAcc = new AccountsBLO().getObjectById(account);
-
-            upAcc.setPass(pass);
-            upAcc.setLastName(lastName);
-            upAcc.setFirstName(firstName);
-            upAcc.setBirthday(birthday);
-            upAcc.setGender(gender);
-            upAcc.setPhone(phone);
-            upAcc.setIsUse(isUse);
-            upAcc.setRoleInSystem(roleInSystem);
-
-            // Update account by call method of AccountDAO
-            int result = new AccountsBLO().updateRec(upAcc);
-            
-            // List all accounts                                 
-            response.sendRedirect("MainController?action=" + Action.LIST_ACCOUNT);
-            
-        
+                // Logout    
+                case Action.LOGOUT:
+                    url = "Logout";
+                    break;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,7 +87,6 @@ public class UpdateAccount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
     }
 

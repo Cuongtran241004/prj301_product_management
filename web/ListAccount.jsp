@@ -8,8 +8,9 @@
 <%@page import="controller.Action"%>
 <%@page import="controller.Navigation"%>
 <%@page import="java.util.List"%>
-<%@page import="model.Account"%>
+<%@page import="entities.Accounts"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>List Account Page</title>
-
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
 
     <body >
-        <c:if test="${login == null || login.roleInSystem != 1}">
+        <c:if test="${login == null}">
             <jsp:forward page = "<%= Navigation.LOGIN%>"></jsp:forward>
         </c:if>
 
@@ -54,20 +55,17 @@
                             </c:choose></td>
                         <td>${a.phone}</td>
                         <td>
-                            <c:choose>
-                                <c:when test="${a.roleInSystem == 1}">Administrator</c:when>
-                                <c:otherwise>Staff</c:otherwise>
-                            </c:choose></td>
+                            ${a.roleInSystem}
                         </td>
                         <td>
 
-                            <c:url scope="request" var="updateUrl" value="<%= Navigation.UPDATE_ACCOUNT %>">
+                            <c:url scope="request" var="updateUrl" value="<%= Navigation.UPDATE_ACCOUNT%>">
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
-                            <c:url scope="request" var="isUseUpdateUrl" value="<%= Action.ISUSE_UPDATE_ACCOUNT %>">
+                            <c:url scope="request" var="isUseUpdateUrl" value="<%= Action.ISUSE_UPDATE_ACCOUNT%>">
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
-                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_ACCOUNT %>">
+                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_ACCOUNT%>">
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
                             <c:choose>

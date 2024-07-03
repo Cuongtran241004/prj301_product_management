@@ -4,10 +4,10 @@
     Author     : ACER
     Usage      : Update account file, include form to update a account 
 --%>
+<%@page import="entities.AccountsBLO"%>
+<%@page import="entities.Accounts"%>
 <%@page import="controller.Navigation"%>
-<%@page import="model.dao.AccountDAO"%>
 <%@page import="controller.Action"%>
-<%@page import="model.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,10 +16,10 @@
         <title>Update Account</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body >
-        <c:if test="${login == null || login.roleInSystem != 1}">
+        <c:if test="${login == null}">
             <jsp:forward page = "Login.jsp"></jsp:forward>
         </c:if>
 
@@ -27,7 +27,7 @@
 
         <%
             String account = (String) request.getParameter("account");
-            Account updateAccount = new AccountDAO(getServletContext()).getObjectById(account);
+            Accounts updateAccount = new AccountsBLO().getObjectById(account);
         %>
 
         <div class="container" >
@@ -72,9 +72,8 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2" for="birthday">Birthday </label>
                     <div class="col-sm-10">          
-                        <input type="date" class="form-control"  placeholder="First name" name="birthday" 
-                               max="2010-01-01"
-                               pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<%= updateAccount.getBirthday()%>" required="">
+                        <input type="date" class="form-control" name="birthday" 
+                               value="<%=  updateAccount.getBirthday() %>"  required="">
                     </div>
                 </div>
 
@@ -93,8 +92,9 @@
                     <label class="col-form-label col-sm-2" for="roleInSystem">Role in system </label>
                     <div class="col-sm-10">          
                         <select class="form-select"  name="roleInSystem">
-                            <option value="1">Administrator</option>
-                            <option value="2">Staff</option>                         
+                            <option value="administrator">Administrator</option>
+                            <option value="staff">Staff</option>   
+                            <option value="customer">Customer</option>  
                         </select>
                     </div>
                 </div>
@@ -111,14 +111,14 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-outline-secondary" name="action" value="<%= Action.UPDATE_ACCOUNT%>">Update</button>
                     </div>
-                    
+
                     <div class="col-sm-offset-2 col-sm-2" >
                         <a href="<%= Navigation.LIST_ACCOUNT%>" class="btn btn-warning" style="margin-left: 100px">Cancel</a>
                     </div>
                 </div>
 
                 <div class="row mb-3">        
-                    
+
                 </div>
             </form>
 

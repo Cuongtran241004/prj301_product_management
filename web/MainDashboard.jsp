@@ -5,7 +5,7 @@
     Usage      : include all information about Cường's Store
 --%>
 
-<%@page import="model.Account"%>
+<%@page import="entities.Accounts"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
-        
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body>
     <c:if test="${login == null}">
@@ -23,8 +23,8 @@
     <%
         boolean check = false;
 
-        Account a = (Account) session.getAttribute("login");
-        if (a.getRoleInSystem() == 1) {
+        Accounts a = (Accounts) session.getAttribute("login");
+        if (a.getRoleInSystem().equals("administrator")) {
             check = true;
         }
 

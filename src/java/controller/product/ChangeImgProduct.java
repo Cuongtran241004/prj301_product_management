@@ -1,9 +1,10 @@
-
 package controller.product;
 
 import controller.Action;
 import controller.Navigation;
 import controller.account.AddAccount;
+import entities.Products;
+import entities.ProductsBLO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,11 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import model.Account;
-import model.Category;
-import model.Product;
-import model.dao.CategoryDAO;
-import model.dao.ProductDAO;
+
 
 /**
  *
@@ -47,30 +44,24 @@ public class ChangeImgProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            HttpSession session = request.getSession();
-           
-            String productId = request.getParameter("id");
-            String productName = request.getParameter("name");
-            String productImage = handleUploadFile(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
-            Product product = new Product();
-            ProductDAO dao = new ProductDAO(getServletContext());
+        String productId = request.getParameter("id");
+        String productName = request.getParameter("name");
+        String productImage = handleUploadFile(request, response);
 
-            product.setProductId(productId);
-            product.setProductName(productName);
-            product.setProductImage(productImage);         
+        Products product = new Products();
+        ProductsBLO dao = new ProductsBLO();
 
-            dao.updatePhoto(product);
-            response.sendRedirect(Navigation.CHANGE_IMG_PRODUCT + "?product=" + productId);
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setProductImage(productImage);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.updatePhoto(product);
+        response.sendRedirect(Navigation.CHANGE_IMG_PRODUCT + "?product=" + productId);
+
     }
 
     private String handleUploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

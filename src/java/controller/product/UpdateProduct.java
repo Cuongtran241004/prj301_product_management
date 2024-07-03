@@ -1,8 +1,12 @@
-
 package controller.product;
 
 import controller.Action;
 import controller.account.AddAccount;
+import entities.Accounts;
+import entities.Categories;
+import entities.CategoriesBLO;
+import entities.Products;
+import entities.ProductsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -13,11 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Category;
-import model.Product;
-import model.dao.CategoryDAO;
-import model.dao.ProductDAO;
 
 /**
  *
@@ -38,51 +37,43 @@ public class UpdateProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("login");
-            
-            String productId = request.getParameter("id");
-            String productName = request.getParameter("name");            
-            String brief = request.getParameter("brief");
-            String unit = request.getParameter("unit");
-            String price = request.getParameter("price");
-            String discount = request.getParameter("discount");
-            String typeId = request.getParameter("type");
-            // Process Date by TimeStamp
-            java.util.Date utilDate = new java.util.Date();
-            java.sql.Timestamp postedDate = new java.sql.Timestamp(utilDate.getTime());
 
-            CategoryDAO cateDao = new CategoryDAO(getServletContext());
-            Category type = cateDao.getObjectById(typeId);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("login");
 
-            // Set all product attributes
-            Product product = new Product();
-            ProductDAO dao = new ProductDAO(getServletContext());
-            product.setProductId(productId);
-            product.setProductName(productName);            
-            product.setBrief(brief != null ? brief : "");
-            product.setPostedDate(postedDate);
-            product.setType(type);
-            product.setAccount(account);
-            product.setUnit(unit != null ? unit : "");
-            product.setPrice(price != null ? Integer.parseInt(price) : 0);
-            product.setDiscount(discount != null ? Integer.parseInt(discount) : 0);
+        String productId = request.getParameter("id");
+        String productName = request.getParameter("name");
+        String brief = request.getParameter("brief");
+        String unit = request.getParameter("unit");
+        String price = request.getParameter("price");
+        String discount = request.getParameter("discount");
+        String typeId = request.getParameter("type");
+        // Process Date by TimeStamp
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Timestamp postedDate = new java.sql.Timestamp(utilDate.getTime());
 
-            dao.updateRec(product);
-            response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        CategoriesBLO cateDao = new CategoriesBLO();
+        Categories type = cateDao.getObjectById(Integer.parseInt(typeId));
+
+        // Set all product attributes
+        Products product = new Products();
+        ProductsBLO dao = new ProductsBLO();
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setBrief(brief != null ? brief : "");
+        product.setPostedDate(postedDate);
+        product.setTypeId(type);
+        product.setAccount(account);
+        product.setUnit(unit != null ? unit : "");
+        product.setPrice(price != null ? Integer.parseInt(price) : 0);
+        product.setDiscount(discount != null ? Integer.parseInt(discount) : 0);
+
+        dao.updateRec(product);
+        response.sendRedirect("MainController?action=" + Action.LIST_PRODUCT);
+
     }
-
-    
-  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

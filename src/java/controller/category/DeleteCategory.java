@@ -1,8 +1,8 @@
-
 package controller.category;
 
 import controller.Action;
 import controller.account.AddAccount;
+import entities.CategoriesBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.CategoryDAO;
 
 /**
  *
@@ -31,20 +30,16 @@ public class DeleteCategory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try (PrintWriter out = response.getWriter()) {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            String cate = request.getParameter("category");
-            
-            new CategoryDAO(getServletContext()).deleteRec(cate);
-            
-            response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String cate = request.getParameter("category");
+
+        CategoriesBLO dao = new CategoriesBLO();
+        dao.deleteRec(cate);
+
+        response.sendRedirect("MainController?action=" + Action.LIST_CATEGORY);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

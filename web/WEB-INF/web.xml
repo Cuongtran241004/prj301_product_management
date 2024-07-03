@@ -28,6 +28,16 @@
         <param-name>file</param-name>
         <param-value>D:\FPT_MATERIALS\PRJ301\Product-Management\build\web</param-value>
     </context-param>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <servlet-name>MainController</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>AccountController</servlet-name>
         <servlet-class>controller.account.AccountController</servlet-class>
@@ -108,6 +118,14 @@
         <servlet-name>ChangeImgProduct</servlet-name>
         <servlet-class>controller.product.ChangeImgProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthenController</servlet-name>
+        <servlet-class>controller.AuthenController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterAccount</servlet-name>
+        <servlet-class>controller.account.RegisterAccount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/AccountController</url-pattern>
@@ -187,6 +205,14 @@
     <servlet-mapping>
         <servlet-name>ChangeImgProduct</servlet-name>
         <url-pattern>/ChangeImgProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthenController</servlet-name>
+        <url-pattern>/AuthenController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterAccount</servlet-name>
+        <url-pattern>/RegisterAccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

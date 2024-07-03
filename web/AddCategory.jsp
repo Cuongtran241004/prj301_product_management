@@ -14,7 +14,7 @@
         <title>Add New Category</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
+       <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body >
         <c:if test="${login == null}">

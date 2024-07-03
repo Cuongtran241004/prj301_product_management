@@ -5,10 +5,10 @@
     Usage      : Update a category file, include form to update a category  
 --%>
 
+<%@page import="entities.Categories"%>
+<%@page import="entities.CategoriesBLO"%>
 <%@page import="controller.Navigation"%>
 <%@page import="controller.Action"%>
-<%@page import="model.dao.CategoryDAO"%>
-<%@page import="model.Category"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Category Page</title>
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body>
         <c:if test="${login == null}">
@@ -27,7 +28,7 @@
 
         <%
             String cate = request.getParameter("category");
-            Category updateCategory = new CategoryDAO(getServletContext()).getObjectById(cate);
+            Categories updateCategory = new CategoriesBLO().getObjectById(Integer.parseInt(cate));
         %>
         <div class="container" style="width: 50%">
 

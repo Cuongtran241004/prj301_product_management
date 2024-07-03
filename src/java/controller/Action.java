@@ -14,7 +14,9 @@ public interface Action {
     // Action with Authentication 
     static final String LOGIN = "Login";
     static final String LOGOUT = "Logout";
-
+    static final String REGISTER = "RegisterAccount";
+    static final String ADD_CART_SHOP = "AddCartShop";
+    
     // Action with Account 
     static final String ADD_ACCOUNT = "AddAccount";
     static final String UPDATE_ACCOUNT = "UpdateAccount";
@@ -34,5 +36,7 @@ public interface Action {
     static final String LIST_PRODUCT = "ListProduct";
     static final String DELETE_PRODUCT = "DeleteProduct";
     static final String CHANGE_IMG_PRODUCT = "ChangeImgProduct";
+    static final String LIST_PRODUCT_BY_NAME = "ListProductByName";
+    static final String LIST_PRODUCT_BY_CATEGORY = "ListProductByCategory";
 
 }

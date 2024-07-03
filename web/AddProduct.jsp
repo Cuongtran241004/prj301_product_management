@@ -6,10 +6,11 @@
 --%>
 
 
+<%@page import="entities.Categories"%>
+<%@page import="entities.CategoriesBLO"%>
 <%@page import="controller.Navigation"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Category"%>
-<%@page import="model.dao.CategoryDAO"%>
 <%@page import="controller.Action"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,6 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add New Product</title>
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
 
     <body>
@@ -87,9 +89,9 @@
                     <div class="col-sm-10">          
                         <select class="form-control" name="type" id="type">
                             <%
-                                CategoryDAO dao = new CategoryDAO(getServletContext());
-                                List<Category> list = dao.listAll();
-                                for (Category c : list) {
+                                CategoriesBLO blo = new CategoriesBLO();
+                                List<Categories> list = blo.listAll();
+                                for (Categories c : list) {
                             %>
                             <option value="<%= c.getTypeId()%>" > <%= c.getCategoryName()%> </option>
                             <%

@@ -7,15 +7,17 @@
 
 <%@page import="controller.Action"%>
 <%@page import="controller.Navigation"%>
-<%@page import="model.Product"%>
+<%@page import="entities.Products"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List Product Page</title>
+        <link rel="shortcut icon" href="images/web_logo.png">
     </head>
     <body>
         <c:if test="${login == null}">
@@ -45,20 +47,20 @@
                     <tr id="${i.productId}" style="vertical-align: middle; text-align: center">
                         <td>${i.productName}</td>
                         <td>${i.brief}</td>
-                        <td>${i.type.typeId}</td>
-                        <td>${i.postedDate}</td>
+                        <td>${i.typeId.typeId}</td>
+                        <td> <fmt:formatDate value="${i.postedDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         <td>${i.unit}</td>
                         <td>${i.price}</td>
                         <td>${i.discount}</td>
                         <td>
-                            <c:url scope="request" var="updateUrl" value="<%= Navigation.UPDATE_PRODUCT %>">
+                            <c:url scope="request" var="updateUrl" value="<%= Navigation.UPDATE_PRODUCT%>">
                                 <c:param name="product" value="${i.productId}"></c:param>
                             </c:url>
 
-                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_PRODUCT  %>">
+                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_PRODUCT%>">
                                 <c:param name="product" value="${i.productId}"></c:param>
                             </c:url>
-                             <c:url scope="request" var="changeUrl" value="<%= Navigation.CHANGE_IMG_PRODUCT  %>">
+                            <c:url scope="request" var="changeUrl" value="<%= Navigation.CHANGE_IMG_PRODUCT%>">
                                 <c:param name="product" value="${i.productId}"></c:param>
                             </c:url>
                             <a href="${updateUrl}" class="btn btn-warning ">Update</a>
