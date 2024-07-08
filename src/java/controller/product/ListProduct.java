@@ -40,8 +40,16 @@ public class ListProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        String cateId = request.getParameter("cate");
+        int cate = Integer.parseInt(cateId);
+        List<Products> list = null;
 
-        List<Products> list = new ProductsBLO().listAll();
+        if (cate == 0) {
+            list = new ProductsBLO().listAll();
+        } else {
+            list = new ProductsBLO().listByCategory(cate);
+        }
+
         session.setAttribute("listProduct", list);
 
         response.sendRedirect(Navigation.LIST_PRODUCT);

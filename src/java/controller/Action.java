@@ -38,5 +38,6 @@ public interface Action {
     static final String CHANGE_IMG_PRODUCT = "ChangeImgProduct";
     static final String LIST_PRODUCT_BY_NAME = "ListProductByName";
     static final String LIST_PRODUCT_BY_CATEGORY = "ListProductByCategory";
+    static final String LIST_PRODUCT_BY_CATE_PUBLIC = "ListProductByCatePublic";
 
 }

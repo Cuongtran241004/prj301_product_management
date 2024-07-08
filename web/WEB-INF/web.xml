@@ -22,7 +22,7 @@
     </context-param>
     <context-param>
         <param-name>userPass</param-name>
-        <param-value>123456</param-value>
+        <param-value>12345</param-value>
     </context-param>
     <context-param>
         <param-name>file</param-name>
@@ -119,8 +119,8 @@
         <servlet-class>controller.product.ChangeImgProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AuthenController</servlet-name>
-        <servlet-class>controller.AuthenController</servlet-class>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>controller.UserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterAccount</servlet-name>
@@ -207,8 +207,8 @@
         <url-pattern>/ChangeImgProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AuthenController</servlet-name>
-        <url-pattern>/AuthenController</url-pattern>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/UserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterAccount</servlet-name>

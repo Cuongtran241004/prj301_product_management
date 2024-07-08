@@ -17,6 +17,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>List Categories Page</title>
         <link rel="shortcut icon" href="images/web_logo.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+              integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <body >
@@ -56,8 +59,8 @@
                             <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_CATEGORY%>">
                                 <c:param name="category" value="${a.typeId}"></c:param>
                             </c:url>
-                            <a href= "${updateUrl}" class="btn btn-primary">Update</a>
-                            <a href= "${deleteUrl}" class="btn btn-danger">Delete</a>
+                            <a href= "${updateUrl}" style="color: black; margin: 10px"><i class="fa-solid fa-pen"></i></a>
+                            <a href= "${deleteUrl}" onclick="return confirm('Do you want to delete this category?')" style="color: black; margin: 10px"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>  
 

@@ -82,7 +82,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<%= Navigation.ADD_PRODUCT%>">Add new</a></li>
-                                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_PRODUCT%>">Get list</a></li>
+                                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_PRODUCT%>&cate=0">Get list</a></li>
 
                             </ul>
                         </li>

@@ -5,8 +5,11 @@
  */
 package controller;
 
+import entities.Products;
+import entities.ProductsBLO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -14,12 +17,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ACER
  */
-public class AuthenController extends HttpServlet {
+public class UserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +41,7 @@ public class AuthenController extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
-
+            HttpSession session = request.getSession();
             switch (action) {
                 /**
                  * Authen Request
@@ -51,6 +55,25 @@ public class AuthenController extends HttpServlet {
                 // Logout    
                 case Action.LOGOUT:
                     url = "Logout";
+                    break;
+
+                case Action.LIST_PRODUCT_BY_CATE_PUBLIC:
+                    String cateId = request.getParameter("cate");
+                    int cate = Integer.parseInt(cateId);
+                    List<Products> list = new ProductsBLO().listAll();
+
+                    if (cate == 0) {
+                        list = new ProductsBLO().listAll();
+                    } else {
+                        list = new ProductsBLO().listByCategory(cate);
+                    }
+
+                    session.setAttribute("listProductPublic", list);
+                   // url = "UserController?action=" + Action.LIST_PRODUCT_BY_CATE_PUBLIC + "&cate=" + cate + "#productView";
+                   url = "";
+                    break;
+                default:
+                    session.setAttribute("listProductPublic", new ProductsBLO().listAll());
                     break;
             }
         } catch (Exception ex) {

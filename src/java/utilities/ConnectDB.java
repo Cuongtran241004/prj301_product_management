@@ -20,7 +20,7 @@ public class ConnectDB {
         this.port = "1433";
         this.dbName = "ProductIntro";
         this.user = "sa";
-        this.pass = "123456";
+        this.pass = "12345";
     }
 
     public ConnectDB(ServletContext sc) {

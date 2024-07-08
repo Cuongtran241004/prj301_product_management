@@ -107,7 +107,8 @@ public class MainController extends HttpServlet {
                 case Action.LIST_PRODUCT:
                     url = "ListProduct";
                     break;
-
+                    
+                 
                 // Update a product
                 case Action.UPDATE_PRODUCT:
                     url = "UpdateProduct";

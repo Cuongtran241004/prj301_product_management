@@ -49,6 +49,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
+        em.close();
         return result;
     }
 
@@ -67,6 +68,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
+        em.close();
         return result;
     }
 
@@ -82,9 +84,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
+        em.close();
+
         return result;
     }
-    
+
     public int deleteRec(String id) {
         EntityManager em = emf.createEntityManager();
         Categories deleteCate = em.find(Categories.class, id);
@@ -96,6 +100,8 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
+        em.close();
+
         return result;
     }
 
@@ -106,18 +112,20 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         String jpql = "SELECT c FROM Categories c "
                 + "WHERE c.typeId = :typeId";
         Query query = em.createQuery(jpql);
-        query.setParameter("typeId", id);
+        query.setParameter("typeId", Integer.parseInt(id));
 
         Categories cate = null;
         try {
             cate = (Categories) query.getSingleResult();
         } catch (NoResultException ex) {
             Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            em.close();
         }
         return cate;
     }
-    
-     public Categories getObjectById(int id) {
+
+    public Categories getObjectById(int id) {
         EntityManager em = emf.createEntityManager();
 
         String jpql = "SELECT c FROM Categories c "
@@ -130,10 +138,12 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             cate = (Categories) query.getSingleResult();
         } catch (NoResultException ex) {
             Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            em.close();
         }
         return cate;
     }
-    
+
     public Categories getCateByName(String name) {
         EntityManager em = emf.createEntityManager();
 
@@ -145,8 +155,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         Categories cate = null;
         try {
             cate = (Categories) query.getSingleResult();
+
         } catch (NoResultException ex) {
             Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            em.close();
         }
         return cate;
     }
@@ -160,8 +173,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         List<Categories> list = null;
         try {
             list = query.getResultList();
+
         } catch (NoResultException ex) {
             Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            em.close();
         }
 
         return list;
@@ -175,8 +191,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         List<Categories> list = null;
         try {
             list = query.getResultList();
+
         } catch (NoResultException ex) {
             Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            em.close();
         }
 
         return list;

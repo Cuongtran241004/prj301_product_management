@@ -171,10 +171,9 @@ public class ProductsBLO implements Serializable, Accessible<Products>{
       public List<Products> listByCategory(int id) {
         EntityManager em = emf.createEntityManager();
         String jpql = "SELECT p FROM Products p "
-                + "WHERE p.type = :type"; 
+                + "WHERE p.typeId.typeId = :typeId"; 
         Query query = em.createQuery(jpql);
-        query.setParameter("type", id);
-        
+        query.setParameter("typeId", id);
         List<Products> list = null;
         try {
             list = query.getResultList();
