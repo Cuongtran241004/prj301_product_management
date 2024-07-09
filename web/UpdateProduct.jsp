@@ -4,12 +4,12 @@
     Author     : ACER
     Usage      : Update a product file, include form to update a product
 --%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@page import="entities.Categories"%>
 <%@page import="entities.CategoriesBLO"%>
 <%@page import="entities.Products"%>
 <%@page import="entities.ProductsBLO"%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +35,7 @@
         <div class="container" style="width: 60%" >
 
             <h2 class="my-4 text-center">Update product</h2>
-            <form  action="MainController" method="POST" enctype="multipart/form-data">
+            <form  action="ProductController" method="POST" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2 fw-bold" for="id">Product ID</label>
                     <div class="col-sm-10">

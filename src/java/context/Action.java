@@ -1,4 +1,4 @@
-package controller;
+package context;
 
 /**
  *
@@ -16,6 +16,7 @@ public interface Action {
     static final String LOGOUT = "Logout";
     static final String REGISTER = "RegisterAccount";
     static final String ADD_CART_SHOP = "AddCartShop";
+    static final String ORDER = "Order";
     
     // Action with Account 
     static final String ADD_ACCOUNT = "AddAccount";

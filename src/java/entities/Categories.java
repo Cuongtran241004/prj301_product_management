@@ -7,10 +7,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.annotation.Generated;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,6 +38,7 @@ public class Categories implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "typeId", nullable = false)
     private Integer typeId;
@@ -115,5 +119,5 @@ public class Categories implements Serializable {
     public String toString() {
         return "entities.Categories[ typeId=" + typeId + " ]";
     }
-    
+
 }

@@ -28,115 +28,67 @@
         <param-name>file</param-name>
         <param-value>D:\FPT_MATERIALS\PRJ301\Product-Management\build\web</param-value>
     </context-param>
+   
     <filter>
+        <filter-name>HomeFilter</filter-name>
+        <filter-class>filter.HomeFilter</filter-class>
+    </filter>
+    <!--    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filter.AdminFilter</filter-class>
+    </filter>
+         <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>filter.LoginFilter</filter-class>
-    </filter>
+    </filter>-->
+    
+    <filter-mapping>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>MainController</servlet-name>      
+    </filter-mapping>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <servlet-name>MainController</servlet-name>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    -->
+    <servlet>
+        <servlet-name>GuestController</servlet-name>
+        <servlet-class>controller.GuestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerController</servlet-name>
+        <servlet-class>controller.CustomerController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AccountController</servlet-name>
-        <servlet-class>controller.account.AccountController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddAccount</servlet-name>
-        <servlet-class>controller.account.AddAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateAccount</servlet-name>
-        <servlet-class>controller.account.UpdateAccount</servlet-class>
+        <servlet-class>controller.AccountController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CategoryController</servlet-name>
-        <servlet-class>controller.category.CategoryController</servlet-class>
+        <servlet-class>controller.CategoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductController</servlet-name>
-        <servlet-class>controller.product.ProductController</servlet-class>
+        <servlet-class>controller.ProductController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AddCategory</servlet-name>
-        <servlet-class>controller.category.AddCategory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateCategory</servlet-name>
-        <servlet-class>controller.category.UpdateCategory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateProduct</servlet-name>
-        <servlet-class>controller.product.UpdateProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MainController</servlet-name>
-        <servlet-class>controller.MainController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>controller.Login</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>controller.Logout</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListAccount</servlet-name>
-        <servlet-class>controller.account.ListAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteAccount</servlet-name>
-        <servlet-class>controller.account.DeleteAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>IsUseUpdateAccount</servlet-name>
-        <servlet-class>controller.account.IsUseUpdateAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListCategory</servlet-name>
-        <servlet-class>controller.category.ListCategory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteCategory</servlet-name>
-        <servlet-class>controller.category.DeleteCategory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListProduct</servlet-name>
-        <servlet-class>controller.product.ListProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteProduct</servlet-name>
-        <servlet-class>controller.product.DeleteProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddProduct</servlet-name>
-        <servlet-class>controller.product.AddProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangeImgProduct</servlet-name>
-        <servlet-class>controller.product.ChangeImgProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UserController</servlet-name>
-        <servlet-class>controller.UserController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RegisterAccount</servlet-name>
-        <servlet-class>controller.account.RegisterAccount</servlet-class>
-    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>GuestController</servlet-name>
+        <url-pattern>/GuestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerController</servlet-name>
+        <url-pattern>/CustomerController</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
         <url-pattern>/AccountController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddAccount</servlet-name>
-        <url-pattern>/AddAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateAccount</servlet-name>
-        <url-pattern>/UpdateAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CategoryController</servlet-name>
@@ -146,74 +98,7 @@
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/ProductController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddCategory</servlet-name>
-        <url-pattern>/AddCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateCategory</servlet-name>
-        <url-pattern>/UpdateCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateProduct</servlet-name>
-        <url-pattern>/UpdateProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MainController</servlet-name>
-        <url-pattern>/MainController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/Logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListAccount</servlet-name>
-        <url-pattern>/ListAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteAccount</servlet-name>
-        <url-pattern>/DeleteAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>IsUseUpdateAccount</servlet-name>
-        <url-pattern>/IsUseUpdateAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListCategory</servlet-name>
-        <url-pattern>/ListCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteCategory</servlet-name>
-        <url-pattern>/DeleteCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListProduct</servlet-name>
-        <url-pattern>/ListProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteProduct</servlet-name>
-        <url-pattern>/DeleteProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddProduct</servlet-name>
-        <url-pattern>/AddProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeImgProduct</servlet-name>
-        <url-pattern>/ChangeImgProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserController</servlet-name>
-        <url-pattern>/UserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegisterAccount</servlet-name>
-        <url-pattern>/RegisterAccount</url-pattern>
-    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
@@ -224,6 +109,14 @@
     </welcome-file-list>
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/invalid.html</location>
+        <location>/Invalid.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/Invalid.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/Invalid.jsp</location>
     </error-page>
 </web-app>

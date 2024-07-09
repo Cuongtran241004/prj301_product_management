@@ -5,13 +5,13 @@
  */
 package filter;
 
-import entities.Accounts;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -27,109 +27,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ACER
  */
-public class LoginFilter implements Filter {
+public class HomeFilter implements Filter {
 
     private static final boolean debug = false;
-    private final List<String> staff;
-    private final List<String> customer;
-    
+
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
+    private HashMap<Integer, String> page;
 
-    public LoginFilter() {
-        customer = new ArrayList<>();
-        customer.add("");
-        
-        staff = new ArrayList<>();
-        
+    public HomeFilter() {
+        page = new HashMap<Integer, String>();
+        page.put(1, "AddAccount.jsp");
+        page.put(2, "AddCategory.jsp");
+        page.put(3, "AddProduct.jsp");
+        page.put(4, "ListAccount.jsp");
+        page.put(5, "ListCategory.jsp");
+        page.put(6, "ListProduct.jsp");
+        page.put(7, "UpdateAccount.jsp");
+        page.put(8, "UpdateCategory.jsp");
+        page.put(9, "UpdateProduct.jsp");
+        page.put(10, "Welcome.jsp");
+        page.put(11, "Login.jsp");
+        page.put(12, "Register.jsp");
+        page.put(13, "Invalid.jsp");
+        page.put(14, "ChangeImgProduct.jsp");
+        page.put(15, "MainDashboard.jsp");
+        page.put(16, "ProductDetail.jsp");
+        page.put(17, "ProductPublic.jsp");
+        page.put(18, "CartShop.jsp");
+        page.put(19, "Dashboard.jsp");
     }
 
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
         if (debug) {
-            log("LoginFilter:DoBeforeProcessing");
+            log("HomeFilter:DoBeforeProcessing");
         }
-
-        // Write code here to process the request and/or response before
-        // the rest of the filter chain is invoked.
-        // For example, a filter that implements setParameter() on a request
-        // wrapper could set parameters on the request before passing it on
-        // to the filter chain.
-        /*
-	String [] valsOne = {"val1a", "val1b"};
-	String [] valsTwo = {"val2a", "val2b", "val2c"};
-	request.setParameter("name1", valsOne);
-	request.setParameter("nameTwo", valsTwo);
-         */
-        // For example, a logging filter might log items on the request object,
-        // such as the parameters.
-        /*
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    String values[] = request.getParameterValues(name);
-	    int n = values.length;
-	    StringBuffer buf = new StringBuffer();
-	    buf.append(name);
-	    buf.append("=");
-	    for(int i=0; i < n; i++) {
-	        buf.append(values[i]);
-	        if (i < n-1)
-	            buf.append(",");
-	    }
-	    log(buf.toString());
-	}
-         */
     }
 
     private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
         if (debug) {
-            log("LoginFilter:DoAfterProcessing");
+            log("HomeFilter:DoAfterProcessing");
         }
-
-        // Write code here to process the request and/or response after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed. 
-        /*
-	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = request.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-
-	}
-         */
-        // For example, a filter might append something to the response.
-        /*
-	PrintWriter respOut = new PrintWriter(response.getWriter());
-	respOut.println("<p><strong>This has been appended by an intrusive filter.</strong></p>");
-	
-	respOut.println("<p>Params (after the filter chain):<br>");
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-		String name = (String)en.nextElement();
-		String values[] = request.getParameterValues(name);
-		int n = values.length;
-		StringBuffer buf = new StringBuffer();
-		buf.append(name);
-		buf.append("=");
-		for(int i=0; i < n; i++) {
-		    buf.append(values[i]);
-		    if (i < n-1)
-			buf.append(",");
-		}
-		log(buf.toString());
-		respOut.println(buf.toString() + "<br>");
-	}
-        respOut.println("</p>");
-         */
     }
 
     /**
@@ -146,7 +93,7 @@ public class LoginFilter implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("LoginFilter:doFilter()");
+            log("HomeFilter:doFilter()");
         }
 
         // Create wrappers for the request and response objects.
@@ -161,16 +108,21 @@ public class LoginFilter implements Filter {
         ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
 
         doBeforeProcessing(wrappedRequest, wrappedResponse);
-        
-        HttpSession session = wrappedRequest.getSession();
-        Accounts account = (Accounts) session.getAttribute("login");
-        
-        if (account == null) {
-            wrappedRequest.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        String uri = wrappedRequest.getServletPath();
         Throwable problem = null;
-
+        boolean check = false;
         try {
+            if (uri.contains(".jsp")) {
+                for (String s : page.values()) {
+                    if (uri.contains(s)) {
+                        check = true;
+                    }
+                }
+                if (!check) {
+                    wrappedResponse.sendRedirect("Welcome.jsp");
+                }
+            }
+
             chain.doFilter(wrappedRequest, wrappedResponse);
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
@@ -222,9 +174,10 @@ public class LoginFilter implements Filter {
      */
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
+
         if (filterConfig != null) {
             if (debug) {
-                log("LoginFilter: Initializing filter");
+                log("HomeFilter: Initializing filter");
             }
         }
     }
@@ -235,9 +188,9 @@ public class LoginFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("LoginFilter()");
+            return ("HomeFilter()");
         }
-        StringBuffer sb = new StringBuffer("LoginFilter(");
+        StringBuffer sb = new StringBuffer("HomeFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
@@ -312,7 +265,7 @@ public class LoginFilter implements Filter {
 
         public void setParameter(String name, String[] values) {
             if (debug) {
-                System.out.println("LoginFilter::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
+                System.out.println("HomeFilter::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
             }
 
             if (localParams == null) {
@@ -332,7 +285,7 @@ public class LoginFilter implements Filter {
         @Override
         public String getParameter(String name) {
             if (debug) {
-                System.out.println("LoginFilter::getParameter(" + name + ") localParams = " + localParams);
+                System.out.println("HomeFilter::getParameter(" + name + ") localParams = " + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameter(name);
@@ -351,7 +304,7 @@ public class LoginFilter implements Filter {
         @Override
         public String[] getParameterValues(String name) {
             if (debug) {
-                System.out.println("LoginFilter::getParameterValues(" + name + ") localParams = " + localParams);
+                System.out.println("HomeFilter::getParameterValues(" + name + ") localParams = " + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameterValues(name);
@@ -362,7 +315,7 @@ public class LoginFilter implements Filter {
         @Override
         public Enumeration getParameterNames() {
             if (debug) {
-                System.out.println("LoginFilter::getParameterNames() localParams = " + localParams);
+                System.out.println("HomeFilter::getParameterNames() localParams = " + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameterNames();
@@ -373,7 +326,7 @@ public class LoginFilter implements Filter {
         @Override
         public Map getParameterMap() {
             if (debug) {
-                System.out.println("LoginFilter::getParameterMap() localParams = " + localParams);
+                System.out.println("HomeFilter::getParameterMap() localParams = " + localParams);
             }
             if (localParams == null) {
                 return getRequest().getParameterMap();

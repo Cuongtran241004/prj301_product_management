@@ -45,9 +45,18 @@ go
 
 create table items(
 	itemId int primary key not null identity,
-	productId varchar(10) not null foreign key references products(productId) on update cascade,
-	account varchar(20) not null foreign key references accounts(account) on update cascade,
+	productId varchar(10) not null foreign key references products(productId),
+	account varchar(20) not null foreign key references accounts(account) ,
 	quantity int not null default 1,
+	price int not null
+)
+go
+create table orders(
+	orderId int primary key not null identity,
+	itemId int not null foreign key references items(itemId),
+	account varchar(20) not null foreign key references accounts(account) ,
+	orderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+	total int not null
 )
 go
 -- YC 1: Nhập thông tin tài khoản, tối thiểu 5 thành viên sẽ dùng để làm việc với các trang: Administrative pages
@@ -154,7 +163,7 @@ insert into products (productId, productName, productImage, brief, account, pric
 					 'manager', 315000,0,4, N'Bộ');
 go
 insert into products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
-              values('6075086733', N'Áo thể thao Fitme Body Compression', '/images/sanPham/aoTheThaoFitness.pnj',
+              values('6075086733', N'Áo thể thao Fitme Body Compression', '/images/sanPham/aoTheThaoFitness.png',
 			          N'Áo thể thao Body Compression Fitme cao cấp chuyên nghiệp dành cho những ai có nhu cầu luyện tập với cường độ cao
 						Phù hợp cho các môn thể thao tập gym, bóng rổ, bóng đá, bóng chuyền, giữ nhiệt. 
 						Quần chất co dãn cao, fit cơ thể, tôn dáng người', 

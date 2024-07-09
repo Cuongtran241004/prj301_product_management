@@ -5,8 +5,8 @@
     Usage      : List accounts file
 --%>
 
-<%@page import="controller.Action"%>
-<%@page import="controller.Navigation"%>
+<%@page import="context.Action"%>
+<%@page import="context.Navigation"%>
 <%@page import="java.util.List"%>
 <%@page import="entities.Accounts"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,9 +25,6 @@
     </head>
 
     <body >
-        <c:if test="${login == null}">
-            <jsp:forward page = "<%= Navigation.LOGIN%>"></jsp:forward>
-        </c:if>
 
         <jsp:include page="<%= Navigation.DASHBOARD%>" ></jsp:include>
 
@@ -65,10 +62,12 @@
                             <c:url scope="request" var="updateUrl" value="<%= Navigation.UPDATE_ACCOUNT%>">
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
-                            <c:url scope="request" var="isUseUpdateUrl" value="<%= Action.ISUSE_UPDATE_ACCOUNT%>">
+                            <c:url scope="request" var="isUseUpdateUrl" value="AccountController">
+                                <c:param name="action" value="<%= Action.ISUSE_UPDATE_ACCOUNT %>"></c:param>
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
-                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_ACCOUNT%>">
+                            <c:url scope="request" var="deleteUrl" value="AccountController">
+                                <c:param name="action" value="<%= Action.DELETE_ACCOUNT%>"></c:param>
                                 <c:param name="account" value="${a.account}"></c:param>
                             </c:url>
                             <c:choose>
@@ -93,11 +92,8 @@
                                     <a href="${deleteUrl}"  class="btn btn-danger disabled" >Delete</a>
                                 </c:otherwise>
                             </c:choose>
-
                         </td>
                     </tr>  
-
-
                 </c:forEach>     
             </tbody>
         </table>

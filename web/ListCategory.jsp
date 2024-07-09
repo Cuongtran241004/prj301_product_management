@@ -5,8 +5,8 @@
     Usage      : List categories file
 --%>
 
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,9 +23,6 @@
     </head>
 
     <body >
-        <c:if test="${login == null}">
-            <jsp:forward page = "Login.jsp"></jsp:forward>
-        </c:if>
 
         <jsp:include page="Dashboard.jsp" ></jsp:include>
 
@@ -56,7 +53,8 @@
                                 <c:param name="category" value="${a.typeId}"></c:param>
                             </c:url>
 
-                            <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_CATEGORY%>">
+                            <c:url scope="request" var="deleteUrl" value="CategoryController">
+                                <c:param name="action" value="<%= Action.DELETE_CATEGORY %>"></c:param>
                                 <c:param name="category" value="${a.typeId}"></c:param>
                             </c:url>
                             <a href= "${updateUrl}" style="color: black; margin: 10px"><i class="fa-solid fa-pen"></i></a>

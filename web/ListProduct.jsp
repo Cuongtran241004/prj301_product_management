@@ -7,8 +7,8 @@
 
 <%@page import="entities.Categories"%>
 <%@page import="entities.CategoriesBLO"%>
-<%@page import="controller.Action"%>
-<%@page import="controller.Navigation"%>
+<%@page import="context.Action"%>
+<%@page import="context.Navigation"%>
 <%@page import="entities.Products"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,8 +26,6 @@
     </head>
     <body>
 
-
-
         <jsp:include page="Dashboard.jsp" ></jsp:include>
 
             <h2 class="text-center mt-4">List All Products</h2>
@@ -38,10 +36,10 @@
                 <ul class="dropdown-menu">
                 <c:set var="list" value="<%= new CategoriesBLO().listAll()%>"></c:set>
                 <c:forEach var="i" items="${list}">
-                    <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_PRODUCT%>&cate=${i.typeId}" id="${i.typeId}" > ${i.categoryName} </a></li>
+                    <li><a class="dropdown-item" href="ProductController?action=<%= Action.LIST_PRODUCT%>&cate=${i.typeId}" id="${i.typeId}" > ${i.categoryName} </a></li>
                     </c:forEach>
 
-                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_PRODUCT%>&cate=0" id="0" > Tất cả </a></li>
+                <li><a class="dropdown-item" href="ProductController?action=<%= Action.LIST_PRODUCT%>&cate=0" id="0" > Tất cả </a></li>
             </ul>
         </div>
         <table class="table table-bordered container mt-3" >
@@ -75,7 +73,8 @@
                                     <c:param name="product" value="${i.productId}"></c:param>
                                 </c:url>
 
-                                <c:url scope="request" var="deleteUrl" value="<%= Action.DELETE_PRODUCT%>">
+                                <c:url scope="request" var="deleteUrl" value="ProductController">
+                                    <c:param name="action" value="<%= Action.DELETE_PRODUCT%>"></c:param>
                                     <c:param name="product" value="${i.productId}"></c:param>
                                 </c:url>
                                 <c:url scope="request" var="changeUrl" value="<%= Navigation.CHANGE_IMG_PRODUCT%>">

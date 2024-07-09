@@ -4,11 +4,11 @@
     Author     : ACER
     Usage      : Public product file, includes carts rendering all product information
 --%>
+<%@page import="context.Action"%>
+<%@page import="context.Navigation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib  prefix="format" uri="/WEB-INF/tlds/myTag.tld" %>
-<%@page import="controller.Action"%>
 <%@page import="entities.CategoriesBLO"%>
-<%@page import="controller.Navigation"%>
 <%@page import="entities.Products"%>
 <%@page import="entities.ProductsBLO"%>
 <%@page import="java.util.List"%>
@@ -26,15 +26,15 @@
 
         <h1 class="mt-5 text-center" style="color: #4682B4" id="productView">Product View</h1>
         <div class="dropdown">
-            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" style="margin-left:85%">
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" style="margin-left:80%">
                 List by Category
             </button>
             <ul class="dropdown-menu">
                 <c:set var="list" value="<%= new CategoriesBLO().listAll()%>"></c:set>
                 <c:forEach var="i" items="${list}">
-                    <li><a class="dropdown-item" href="UserController?action=<%= Action.LIST_PRODUCT_BY_CATE_PUBLIC%>&cate=${i.typeId}#productView" id="${i.typeId}" > ${i.categoryName} </a></li>
+                    <li><a class="dropdown-item" href="GuestController?action=<%= Action.LIST_PRODUCT_BY_CATE_PUBLIC%>&cate=${i.typeId}#productView" id="${i.typeId}" > ${i.categoryName} </a></li>
                     </c:forEach>
-                <li><a class="dropdown-item" href="UserController?action=<%= Action.LIST_PRODUCT_BY_CATE_PUBLIC%>&cate=0#productView" id="0" > Tất cả </a></li>
+                <li><a class="dropdown-item" href="GuestController?action=<%= Action.LIST_PRODUCT_BY_CATE_PUBLIC%>&cate=0#productView" id="0" > Tất cả </a></li>
             </ul>
         </div>
         <div class="container" >
@@ -71,7 +71,8 @@
                                 </c:choose>
                             </div>
                         </div>
-                        <c:url scope="request" var="productDetailUrl" value="<%= Navigation.PRODUCT_DETAIL%>">
+                        <c:url scope="request" var="productDetailUrl" value="GuestController">
+                            <c:param name="action" value="<%= Navigation.PRODUCT_DETAIL%>"/>
                             <c:param name="product" value="${p.productId}"></c:param>
                         </c:url>
                         <a href="${productDetailUrl}" class="btn btn-primary" style="margin-bottom: 10px; background-color: #48D1CC; border: none">Detail</a>

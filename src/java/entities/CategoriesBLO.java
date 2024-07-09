@@ -32,24 +32,22 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             em.getTransaction().rollback();
-        } finally {
-            em.close();
         }
     }
 
     @Override
     public int insertRec(Categories obj) {
         EntityManager em = emf.createEntityManager();
-        Categories newCate = em.find(Categories.class, obj.getCategoryName());
         int result = 0;
-
-        if (newCate == null) {
+        try {
             em.getTransaction().begin();
-            em.persist(newCate);
+            em.persist(obj);
             em.getTransaction().commit();
             result = 1;
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            em.getTransaction().rollback();
         }
-        em.close();
         return result;
     }
 
@@ -68,7 +66,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
-        em.close();
+
         return result;
     }
 
@@ -84,14 +82,13 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
-        em.close();
 
         return result;
     }
 
     public int deleteRec(String id) {
         EntityManager em = emf.createEntityManager();
-        Categories deleteCate = em.find(Categories.class, id);
+        Categories deleteCate = em.find(Categories.class, Integer.parseInt(id));
         int result = 0;
 
         if (deleteCate != null) {
@@ -100,7 +97,6 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             em.getTransaction().commit();
             result = 1;
         }
-        em.close();
 
         return result;
     }
@@ -118,9 +114,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         try {
             cate = (Categories) query.getSingleResult();
         } catch (NoResultException ex) {
-            Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            em.close();
+            return null;
         }
         return cate;
     }
@@ -137,9 +131,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         try {
             cate = (Categories) query.getSingleResult();
         } catch (NoResultException ex) {
-            Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            em.close();
+            return null;
         }
         return cate;
     }
@@ -154,12 +146,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
 
         Categories cate = null;
         try {
+
             cate = (Categories) query.getSingleResult();
 
         } catch (NoResultException ex) {
-            Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            em.close();
+            return null;
         }
         return cate;
     }
@@ -169,15 +160,11 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
         EntityManager em = emf.createEntityManager();
         String jpql = "Categories.findAll";
         Query query = em.createNamedQuery(jpql);
-
         List<Categories> list = null;
         try {
             list = query.getResultList();
-
         } catch (NoResultException ex) {
-            Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            em.close();
+            
         }
 
         return list;
@@ -193,9 +180,7 @@ public class CategoriesBLO implements Serializable, Accessible<Categories> {
             list = query.getResultList();
 
         } catch (NoResultException ex) {
-            Logger.getLogger(CategoriesBLO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            em.close();
+            return null;
         }
 
         return list;

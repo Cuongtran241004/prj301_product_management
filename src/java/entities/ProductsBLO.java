@@ -135,7 +135,7 @@ public class ProductsBLO implements Serializable, Accessible<Products>{
         try {
             product = (Products)query.getSingleResult();
         } catch (NoResultException ex) {
-            Logger.getLogger(ProductsBLO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         return product;
     }

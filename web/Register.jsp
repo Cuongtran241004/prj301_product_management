@@ -4,8 +4,9 @@
     Author     : ACER
     Usage      : Register an account 
 --%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+
+<%@page import="context.Action"%>
+<%@page import="context.Navigation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
        
         <div class="container">
                 <h2 class="my-4 text-center">Register Account</h2>
-                <form  action="AuthenController" method="POST"  style="width: 60%; margin: 0 auto">
+                <form  action="GuestController" method="POST"  style="width: 60%; margin: 0 auto">
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-2 fw-bold" for="account">Account</label>
                         <div class="col-sm-10">

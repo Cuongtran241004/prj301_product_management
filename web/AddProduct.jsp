@@ -6,11 +6,11 @@
 --%>
 
 
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@page import="entities.Categories"%>
 <%@page import="entities.CategoriesBLO"%>
-<%@page import="controller.Navigation"%>
 <%@page import="java.util.List"%>
-<%@page import="controller.Action"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@
 
             <div class="container" style="width: 60%" >
                 <h2 class="my-4 text-center">Add new product</h2>
-                <form  action="MainController" method="POST" enctype="multipart/form-data" >
+                <form  action="ProductController" method="POST" enctype="multipart/form-data" >
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-2 fw-bold" for="id">Product ID</label>
                         <div class="col-sm-10">
@@ -89,7 +89,7 @@
                         <select class="form-control" name="type" id="type">                           
                             <c:set var="list" value="<%= new CategoriesBLO().listAll()%>"></c:set>
                             <c:forEach var="i" items="${list}">
-                              <option value="${i.typeId}" > ${c.categoryName} </option>
+                              <option value="${i.typeId}" > ${i.categoryName} </option>
                                 </c:forEach>
                         </select>
                     </div>

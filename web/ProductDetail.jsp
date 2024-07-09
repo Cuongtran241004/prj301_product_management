@@ -4,7 +4,7 @@
     Author     : ACER
 --%>
 
-<%@page import="controller.Action"%>
+<%@page import="context.Action"%>
 <%@page import="entities.Products"%>
 <%@page import="entities.ProductsBLO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

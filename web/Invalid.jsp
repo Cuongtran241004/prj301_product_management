@@ -1,7 +1,11 @@
+<%-- 
+    Document   : Invalid
+    Created on : Jul 8, 2024, 5:51:23 PM
+    Author     : ACER
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-If all errors occur in running program, this will send to invalid page with error code 404
--->
 <html>
     <head>
         <title>Invalid Page</title>
@@ -41,3 +45,4 @@ If all errors occur in running program, this will send to invalid page with erro
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+

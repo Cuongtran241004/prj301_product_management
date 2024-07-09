@@ -6,8 +6,8 @@
 --%>
 
 <%@page import="entities.Accounts"%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,23 +23,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <c:if test="${login == null}">
-            <jsp:forward page ="<%= Navigation.LOGIN%>" ></jsp:forward>
-        </c:if>
 
         <%
             boolean check = false;
 
             Accounts a = (Accounts) session.getAttribute("login");
-            if (a.getRoleInSystem().equals("administrator")) {
-                check = true;
-            }
+
             String fullname = a.getLastName() + " " + a.getFirstName();
         %>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
 
-                <a class="navbar-brand" href="Welcome.jsp">Welcome to <span style="color: red"><%= a.getFirstName() %> </span><%= fullname%> </a>
+                <a class="navbar-brand" href="<%= Navigation.MAIN_DASHBOARD%>">Welcome to <span style="color: red"><%= a.getFirstName()%> </span><%= fullname%> </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,12 +50,12 @@
                         </li>
 
                         <li class="nav-item dropdown mx-4">
-                            <a class="nav-link dropdown-toggle <%= check ? "" : "disabled"%>" href="#"  data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#"  data-bs-toggle="dropdown" aria-expanded="false">
                                 Accounts
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<%= Navigation.ADD_ACCOUNT%>">Add new</a></li>
-                                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_ACCOUNT%>">Get list</a></li>
+                                <li><a class="dropdown-item" href="AccountController?action=<%= Action.LIST_ACCOUNT%>">Get list</a></li>
 
                             </ul>
                         </li>
@@ -71,7 +66,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<%= Navigation.ADD_CATEGORY%>">Add new</a></li>
-                                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_CATEGORY%>">Get list</a></li>
+                                <li><a class="dropdown-item" href="CategoryController?action=<%= Action.LIST_CATEGORY%>">Get list</a></li>
 
                             </ul>
                         </li>
@@ -82,7 +77,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<%= Navigation.ADD_PRODUCT%>">Add new</a></li>
-                                <li><a class="dropdown-item" href="MainController?action=<%= Action.LIST_PRODUCT%>&cate=0">Get list</a></li>
+                                <li><a class="dropdown-item" href="ProductController?action=<%= Action.LIST_PRODUCT%>&cate=0">Get list</a></li>
 
                             </ul>
                         </li>
@@ -90,7 +85,7 @@
 
                 </div>
 
-                <a href="AuthenController?action=<%= Action.LOGOUT%>" class="btn btn-danger">Logout</a>
+                <a href="GuestController?action=<%= Action.LOGOUT%>" class="btn btn-danger">Logout</a>
             </div>              
         </nav>
 

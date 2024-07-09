@@ -4,8 +4,8 @@
     Author     : ACER
     Usage      : Add a category file
 --%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
         <div class="container" style="width: 50%">
 
             <h2 class="my-4 text-center">Add new category</h2>
-            <form  action="MainController" method="POST">
+            <form  action="CategoryController" method="POST">
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2 fw-bold" for="cateName">Category name: </label>
                     <div class="col-sm-10">

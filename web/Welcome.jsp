@@ -6,7 +6,7 @@
 --%>
 
 
-<%@page import="controller.Navigation"%>
+<%@page import="context.Navigation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -36,32 +36,43 @@
 
                         </div>
                         <form class="form-inline" style="margin-right: 0" target="_self">
-                            <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
-                        </form><span class="navbar-text"> <a href="Login.jsp" class="login" style="text-decoration: none; margin-right: 10px">Log In</a></span><a class="btn btn-light action-button" role="button" href="<%= Navigation.REGISTER %>">Sign Up</a></div>
-                </nav>
-                <div class="container hero">
-                    <div class="row">
-                        <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
-                            <h1>Products Provider in Ho Chi Minh City</h1>
-                            <p>Our company specializes in providing essential items in life at affordable prices. 
-                                Product quality has been approved and is legal to market</p>
-                            <p></p>
-                            <a href="#productView"><button class="btn btn-light btn-lg action-button" type="button">View more</button></a>
-                        </div>
+                            <div class="form-group">
+                                <label for="search-field"><i class="fa fa-search"></i></label>
+                                <input class="form-control search-field" type="search" name="search" id="search-field">
+                            </div>
+                        </form>
+                        <span class="navbar-text"> 
+                            <a href="Login.jsp" class="login" style="text-decoration: none; margin-right: 10px">Log In</a>
+                        </span>
+                        <a class="btn btn-light action-button" role="button" href="<%= Navigation.REGISTER%>">Sign Up</a>
+                        <a class="btn btn-light action-button" role="button" href="<%= Navigation.CART_SHOP%>">
 
-                        <div
-                            class="col-md-5 col-lg-5  d-none d-lg-block phone-holder avatar-img">
-                            <img src="images/avatar.svg" >
-                        </div>
+                        </a>
+                    </div>
+                </nav>
+         
+            <div class="container hero">
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
+                        <h1>Products Provider in Ho Chi Minh City</h1>
+                        <p>Our company specializes in providing essential items in life at affordable prices. 
+                            Product quality has been approved and is legal to market</p>
+                        <p></p>
+                        <a href="#productView"><button class="btn btn-light btn-lg action-button" type="button">View more</button></a>
+                    </div>
+
+                    <div
+                        class="col-md-5 col-lg-5  d-none d-lg-block phone-holder avatar-img">
+                        <img src="images/avatar.svg"  >
                     </div>
                 </div>
             </div>
-
-            <jsp:include page="ProductPublic.jsp"></jsp:include>
-            <jsp:include page="footer.html"></jsp:include>
         </div>
 
-        
+        <jsp:include page="ProductPublic.jsp"></jsp:include>
+        <jsp:include page="footer.html"></jsp:include>
+
+        </div>
     </body>
 
 </html>

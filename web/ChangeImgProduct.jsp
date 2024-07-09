@@ -6,8 +6,8 @@
 --%>
 <%@page import="entities.ProductsBLO"%>
 <%@page import="entities.Products"%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@page import="java.util.List"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -34,7 +34,7 @@
         <div class="container" style="width: 60%" >
 
             <h2 class="my-4 text-center">Change image product</h2>
-            <form  action="MainController" method="POST" enctype="multipart/form-data">
+            <form  action="ProductController" method="POST" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <label class="col-form-label col-sm-2 fw-bold" for="id">Product ID</label>
                     <div class="col-sm-10">

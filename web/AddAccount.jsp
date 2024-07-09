@@ -4,8 +4,8 @@
     Author     : ACER
     Usage      : Add account file, include form to add new account 
 --%>
-<%@page import="controller.Navigation"%>
-<%@page import="controller.Action"%>
+<%@page import="context.Navigation"%>
+<%@page import="context.Action"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
             <div class="container" >
 
                 <h2 class="my-4 text-center">Add new account</h2>
-                <form  action="MainController" method="POST">
+                <form  action="AccountController" method="POST">
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-2 fw-bold" for="account">Account</label>
                         <div class="col-sm-10">
